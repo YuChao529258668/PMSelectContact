@@ -11,7 +11,6 @@
 
 #import "MCMemberTableViewCell.h"
 #import "MCAlertView.h"
-//#import "LoadingProgressView.h" // todo
 #import "MCContactsSearchListView.h"
 //#import "YBProgressShow.h" // todo
 
@@ -67,9 +66,9 @@ MCContactsSearchListViewDelegate>
 #pragma mark -- 控制器初始
 -(void)initObject{
     self.isDataChange = NO;
-    self.title = NSLocalizedString(@"成员管理", nil);
+    self.title = @"成员管理";
     if (self.isFriendIn||self.isFromNoteShare) {
-        self.title = NSLocalizedString(@"选择好友", nil);
+        self.title = @"选择好友";
     }
     //添加输入监听
     [self.textField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
@@ -133,7 +132,7 @@ MCContactsSearchListViewDelegate>
     
     //导航栏按钮重写
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"common_back"] style:UIBarButtonItemStylePlain target:self action:@selector(leftBarButtonDidClick:)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:(self.isFriendIn||self.isFromNoteShare) ? @"分享" : NSLocalizedString(@"保存", nil)  style:(UIBarButtonItemStylePlain) target:self action:@selector(rightBarButtonDidClick:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:(self.isFriendIn||self.isFromNoteShare) ? @"分享" : @"保存"  style:(UIBarButtonItemStylePlain) target:self action:@selector(rightBarButtonDidClick:)];
     [self.navigationItem.rightBarButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:16], NSFontAttributeName, nil] forState:UIControlStateNormal];
     
     self.navigationItem.rightBarButtonItem.enabled = NO;
@@ -268,7 +267,7 @@ MCContactsSearchListViewDelegate>
     model.telNumber = [contact.phoneNum string];
     //先判断是否合法
     if (![self valiMobile:model.telNumber]) {
-        [self showToast:NSLocalizedString(@"sharemgr_contactmgr_phone_not_correct", nil)];
+        [self showToast:@"请输入正确的手机号"];
         return;
     }
     //智能添加成员
@@ -286,13 +285,13 @@ MCContactsSearchListViewDelegate>
     [self.view endEditing:YES];
     //首先判断格式是否正确
     if (![self valiMobile:self.textField.text]) {
-        [self showToast:NSLocalizedString(@"sharemgr_contactmgr_phone_not_correct", nil)];
+        [self showToast:@"请输入正确的手机号"];
         return;
     }
     
     //判断是否为分享给自己
     if ([self isMyselfPhoneNumberWithString:self.textField.text]){
-        [self showToast:NSLocalizedString(@"sharemgr_ptopshare_sharetoself", nil)];
+        [self showToast:@"您不能分享给自己"];
 //        self.textField.text = nil;
         return;
     }
@@ -370,7 +369,7 @@ MCContactsSearchListViewDelegate>
 -(void)rightBarButtonDidClick:(UIButton*)sender{
     //判断人数是否超出限制
     if (self.member_dataArr.count > 50) {
-        [self showToast:NSLocalizedString(@"sharemgr_ptopshare_count_beyond", nil)];
+        [self showToast:@"共享人数超出限制"];
         return;
     }
     if (_isFromNoteShare && self.noteSigninChosenMemberBlock) {
@@ -575,6 +574,9 @@ MCContactsSearchListViewDelegate>
     if (text == nil) {
         return;
     }
+    // todo
+    NSLog(@"%@", text);
+    
 //    if (self.toastView) {
 //        return;
 //    }
@@ -785,25 +787,12 @@ MCContactsSearchListViewDelegate>
 //    {
 ////        //不能分享给自己
 ////        [self showAlertMessage:
-////         NSLocalizedString(@"sharemgr_ptopshare_sharetoself", nil)];
+////         @"您不能分享给自己"];
 //        return YES;
 //    }
     return NO;
 }
 
-
-//添加显示的loading
--(void)zh_addLoadingView{
-//    if (!self.reLoadingView) {
-//        LoadingProgressView *tmpLoadVm = [[LoadingProgressView alloc] init];
-//        self.reLoadingView = tmpLoadVm;
-//    }
-//    if (self.isFriendIn) {
-//        [self.reLoadingView showProgressWithTitle:@"正在分享"];
-//    } else {
-//       [self.reLoadingView showProgressWithTitle:NSLocalizedString(@"common_waiting", nil)];
-//    }
-}
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"kNotification-SharerDismiss" object:nil];

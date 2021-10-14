@@ -281,6 +281,7 @@ MCAlertViewDelegate
 //获取本地通讯录
 - (void)fetchLocalContacts {
     if (_isShowLoadingView) {
+        // todo
 //        [self.loadingView showProgressWithTitle:NSLocalizedString(@"加载中...", nil) inView:self.view];
     }
 
