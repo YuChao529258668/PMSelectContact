@@ -62,7 +62,30 @@ MCContactsSearchListViewDelegate>
     [self getData];
     //初始化视图
     [self initView];
+    
+    [self adjustNavigationBariOS15:self.navigationController.navigationBar];
 }
+
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+    
+    CGRect frame = self.view.frame;
+    frame.origin.y = self.navigationController.navigationBar.frame.size.height;
+    self.view.frame = frame;
+}
+
+- (void)adjustNavigationBariOS15:(UINavigationBar *)navigationBar {
+    if (@available(iOS 15.0, *)) {
+        UINavigationBarAppearance *appearance = [UINavigationBarAppearance new];
+        [appearance configureWithOpaqueBackground];
+        appearance.backgroundColor = [UIColor whiteColor];
+        appearance.shadowColor = [UIColor clearColor]; // 去掉底部分割线
+        appearance.backgroundEffect = nil; // 去掉半透明效果
+        navigationBar.standardAppearance = appearance;
+        navigationBar.scrollEdgeAppearance = navigationBar.standardAppearance;
+    }
+}
+
 #pragma mark -- 控制器初始
 -(void)initObject{
     self.isDataChange = NO;
