@@ -90,6 +90,8 @@ MCAlertViewDelegate
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
     // Do any additional setup after loading the view.
+    
+    [self showRightButton:NO];
 }
 
 - (void)viewWillLayoutSubviews {
@@ -254,6 +256,9 @@ MCAlertViewDelegate
     NSString *title = NSLocalizedString(@"联系人", nil);
     if (self.selectedDatas.count > 0) {
         title = [NSString stringWithFormat:@"%@（已选%ld）", title, (unsigned long)self.selectedDatas.count];
+        [self showRightButton:YES];
+    } else {
+        [self showRightButton:NO];
     }
     self.title = title;
 }
@@ -338,7 +343,7 @@ MCAlertViewDelegate
             
             [self _setTitle];
             if (self.dataSource.count > 0) {
-                [self showRightButton:YES];
+//                [self showRightButton:YES];
                 self.tableView.hidden = NO;
                 _emptyView.hidden = YES;
                 

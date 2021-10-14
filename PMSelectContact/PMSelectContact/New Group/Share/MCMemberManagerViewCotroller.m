@@ -24,8 +24,6 @@
 
 #import "NSString+Extend.h"
 #import "pinyin.h"
-//#import "McloudAlertView.h" // todo
-//#import "MCToastView.h" // todo
 
 @interface MCMemberManagerViewCotroller ()
 <UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,MCMemberTableViewCellDelegate,
@@ -793,43 +791,6 @@ MCContactsSearchListViewDelegate>
     return NO;
 }
 
-
-- (void)showAlertMessageDelay:(NSString *)msg
-{
-    //延迟0.5秒提示用户
-//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.5f * NSEC_PER_SEC);
-//
-//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-//
-//        if (msg)
-//        {
-//            McloudAlertView* alertView =
-//            [[McloudAlertView alloc]initWithTitle:@""
-//                                          message:msg
-//                                         delegate:nil
-//                                cancelButtonTitle:NSLocalizedString(@"common_confirm", nil)
-//                                otherButtonTitles:nil];
-//            [alertView show];
-//        }
-//        else
-//        {
-//            FXTRACE(FXT_INFO_LVL, @"showAlertMessage", @"show msg is nil.");
-//        }
-//    });
-}
-- (void)showAlertMessage:(NSString *)msg
-{
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        if (msg){
-//            McloudAlertView* alertView =
-//            [[McloudAlertView alloc]initWithTitle:@"" message:msg delegate:nil  cancelButtonTitle:NSLocalizedString(@"common_confirm", nil) otherButtonTitles:nil];
-//            [alertView show];
-//        }
-//        else{
-//            FXTRACE(FXT_INFO_LVL, @"showAlertMessage", @"show msg is nil.");
-//        }
-//    });
-}
 
 //添加显示的loading
 -(void)zh_addLoadingView{
