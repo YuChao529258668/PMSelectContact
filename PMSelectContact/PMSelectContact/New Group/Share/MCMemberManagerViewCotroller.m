@@ -11,32 +11,27 @@
 
 #import "MCMemberTableViewCell.h"
 #import "MCAlertView.h"
-#import "LoadingProgressView.h"
+//#import "LoadingProgressView.h" // todo
 #import "MCContactsSearchListView.h"
-#import "YBProgressShow.h"
+//#import "YBProgressShow.h" // todo
 
-#import "ReceivedShareDataSource.h"
 #import "MCShareContactSearchModel.h"
 #import "LocalAddressBookModel.h"
 #import "AddressBookModel.h"
 #import "MCContactObject.h"
-#import "AddressBookManager.h"
-#import "MCSearchCoreManager.h"
-#import "MCContactHelper.h"
-#import <YYModel/YYModel.h>
+
+//#import "AddressBookManager.h" // todo
 
 #import "NSString+Extend.h"
 #import "pinyin.h"
-#import "NetMonitor.h"
-#import "SDWebImageManager.h"
-#import <CommonCrypto/CommonDigest.h>
-#import "OprLogManager.h"
-#import "ShareManager.h"
-#import "McloudAlertView.h"
+//#import "NetMonitor.h" // todo
+//#import "McloudAlertView.h" // todo
+//#import "MCToastView.h" // todo
 
-#import "MCToastView.h"
-
-@interface MCMemberManagerViewCotroller ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,MCMemberTableViewCellDelegate,MCAlertViewDelegate,CloudFileDataSourceDelegate,MCContactsSearchListViewDelegate>
+@interface MCMemberManagerViewCotroller ()
+<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,MCMemberTableViewCellDelegate,
+MCAlertViewDelegate,
+MCContactsSearchListViewDelegate>
 //联系人搜索
 @property(nonatomic,strong) UITableView* search_tableView;//搜索结果展示的列表
 @property(nonatomic,assign)CGFloat searchTableView_height;//搜索结果列表的高度
@@ -55,25 +50,9 @@
 @property(nonatomic,assign)BOOL isDataChange;//yes  表示有人员改变
 @property(nonatomic,assign)NSUInteger selected_row;//点击删除图标记录选中的行
 
-
-#pragma mark -- 发出共享引入
-@property (nonatomic, assign) ShareNameType shareType;
-@property (nonatomic, assign) NSInteger shareCount;
-@property(nonatomic,strong)ShareInfoModel * shareInfoModel;
-@property(nonatomic,strong)ReceivedShareDataSource * cloudFileDataSource;
-
-
-@property(nonatomic,assign)NSInteger sendSuccessNumbers;//发送分享成功个数
-@property(nonatomic,assign)NSInteger sendFailNumbers;//发送分享失败个数
-@property(nonatomic,assign)BOOL isFileExistSensitiveWords; //文件是否包含敏感字
-@property(nonatomic,assign)BOOL isNetWrokError; //网络异常
-@property(nonatomic,assign)BOOL isShare_Retreat;//暂时关闭
-@property(nonatomic,retain)LoadingProgressView  * reLoadingView;
-@property(nonatomic,strong)YBProgressShow * toastView;//吐司视图
-
 //730选择好友列表为空的页面
 @property (nonatomic, strong) UIView *emptyView;
-@property (nonatomic, strong) MBProgressHUD *mbProgressHUD;
+//@property (nonatomic, strong) MBProgressHUD *mbProgressHUD;
 
 @end
 
@@ -91,10 +70,6 @@
 #pragma mark -- 控制器初始
 -(void)initObject{
     self.isDataChange = NO;
-    self.cloudFileDataSource = [[ReceivedShareDataSource alloc] init];
-    self.cloudFileDataSource.delegate = self;
-    self.cloudFileDataSource.fileOperationDelegate = self;
-    self.cloudFileDataSource.shareRequestType = 0;
     self.title = NSLocalizedString(@"成员管理", nil);
     if (self.isFriendIn||self.isFromNoteShare) {
         self.title = NSLocalizedString(@"选择好友", nil);
@@ -122,8 +97,8 @@
 //    [self zh_addLoadingView];
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         //1.获取通讯录中乱序的联系人数组 sourceArr
-        NSMutableArray * sourcesArr = [AddressBookManager getAllSearchPeoplePhoneContactsInfo];
-        self.search_originArr = sourcesArr;
+//        NSMutableArray * sourcesArr = [AddressBookManager getAllSearchPeoplePhoneContactsInfo];
+//        self.search_originArr = sourcesArr;
         dispatch_async(dispatch_get_main_queue(), ^{
 //            [self.reLoadingView hideProgress];
 //            self.member_tableView.hidden = NO;
@@ -149,10 +124,10 @@
         self.navigationItem.rightBarButtonItem.enabled = NO;
     }
     
-    if (self.isFriendIn) {
-        MBProgressHUD *progress = [[MBProgressHUD alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        self.mbProgressHUD = progress;
-    }
+//    if (self.isFriendIn) {
+//        MBProgressHUD *progress = [[MBProgressHUD alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+//        self.mbProgressHUD = progress;
+//    }
     
     //导航栏按钮重写
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"common_back"] style:UIBarButtonItemStylePlain target:self action:@selector(leftBarButtonDidClick:)];
@@ -296,36 +271,11 @@
     }
     //智能添加成员
     [self updataViewWithAddModel:model];
-    [[OprLogManager sharedInstance] recordOprLog:SHARE_MEMBERMANAGER_SEARCH_SELECTED_STATISTICS];
 }
 -(void)didScrollInView:(MCContactsSearchListView *)view{
     [self.view endEditing:YES];
 }
 
-#pragma mark -- CloudFileDataSourceDelegate
-- (void)cloudDiskDataSource:(CloudFileDataSource *)dataSource
-didCancelShareFolderFileWithFileNodeIDs:(NSArray<NSString *> *)fileNodeIDs
-                     status:(NSInteger)status {
-    [self.reLoadingView hideProgress];
-    if (status == -100){
-        return;
-    }
-    if (status == 0){//取消共享成功
-//        [self performSelector:@selector(showToast:) withObject:NSLocalizedString(@"filemgr_delete_success", nil) afterDelay:1.0f];
-        [self showToast:NSLocalizedString(@"filemgr_delete_success", nil)];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            //传值跳转
-            if (self.block) {
-                self.block(self.isDataChange);
-            }
-            [self.navigationController popViewControllerAnimated:YES];
-        });
-    }else if (status == DataSourceStatusNetError){
-        [self showToast:NSLocalizedString(@"common_network_connect_ungelivable", nil)];
-    }else{
-        [self showToast:NSLocalizedString(@"filemgr_delete_share_fail_and_retry_later", nil)];
-    }
-}
 #pragma mark -- 点击事件
 //添加成员
 - (IBAction)addMemberButtonAction:(UIButton *)sender {
@@ -352,49 +302,47 @@ didCancelShareFolderFileWithFileNodeIDs:(NSArray<NSString *> *)fileNodeIDs
     //判断是不是在搜索结果中有,并返回模型数据
     model = [self searchRsultArrContentModel:model];
     [self updataViewWithAddModel:model];
-    [[OprLogManager sharedInstance] recordOprLog:SHARE_MEMBERMANAGER_ADD_STATISTICS];
 }
 //跳转到通讯录
 - (IBAction)pushToContactButtonAction:(UIButton *)sender {
     // 先判断是否有权限
-    if (![AddressBookManager checkAddressBookAccessPermissions]) {
-        [self
-         showToast:NSLocalizedString(@"addBookMan_noPermission_toAccess", nil)];
-        return;
-    }
-    
-    // 将成员数组传给联系人界面
-    MCContactsViewController * vc = [[MCContactsViewController alloc] init];
-
-    __weak typeof(self) weakSelf = self;
-    vc.addedBlock = ^(NSArray<MCContactObject *> *contacts) {
-        if (contacts.count == 0) {//没有选择联系人
-            return ;
-        }else{
-            for (MCContactObject * objc in contacts) {
-                //模型转换
-                MCShareContactSearchModel * model = [weakSelf getContactModelWithContactObjc:objc];
-                //智能添加到成员数组
-                [weakSelf addMemberModel:model];
-                //更新添加成员数组
-                [weakSelf updataMemberArrWithModel:model arr_input:self.addMemberArr arr_output:self.deletedMemberArr arr_origin:self.tempMemberArr type:1];
-            }
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf.member_tableView reloadData];
-                //改变人员数量
-                weakSelf.memberCountLabel.text = [weakSelf getMemberCountString: weakSelf.member_dataArr.count];
-                if (weakSelf.member_dataArr.count > 0) {
-                    weakSelf.emptyView.hidden = YES;
-                    weakSelf.navigationItem.rightBarButtonItem.enabled = YES;
-                } else {
-                    weakSelf.emptyView.hidden = NO;
-                    weakSelf.navigationItem.rightBarButtonItem.enabled = NO;
-                }
-            });
-        }
-    };
-    [self.navigationController pushViewController:vc animated:YES];
-    [[OprLogManager sharedInstance] recordOprLog:SHARE_MEMBERMANAGER_FROM_ADDRESS_STATISTICS];
+//    if (![AddressBookManager checkAddressBookAccessPermissions]) {
+//        [self
+//         showToast:NSLocalizedString(@"addBookMan_noPermission_toAccess", nil)];
+//        return;
+//    }
+//
+//    // 将成员数组传给联系人界面
+//    MCContactsViewController * vc = [[MCContactsViewController alloc] init];
+//
+//    __weak typeof(self) weakSelf = self;
+//    vc.addedBlock = ^(NSArray<MCContactObject *> *contacts) {
+//        if (contacts.count == 0) {//没有选择联系人
+//            return ;
+//        }else{
+//            for (MCContactObject * objc in contacts) {
+//                //模型转换
+//                MCShareContactSearchModel * model = [weakSelf getContactModelWithContactObjc:objc];
+//                //智能添加到成员数组
+//                [weakSelf addMemberModel:model];
+//                //更新添加成员数组
+//                [weakSelf updataMemberArrWithModel:model arr_input:self.addMemberArr arr_output:self.deletedMemberArr arr_origin:self.tempMemberArr type:1];
+//            }
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [weakSelf.member_tableView reloadData];
+//                //改变人员数量
+//                weakSelf.memberCountLabel.text = [weakSelf getMemberCountString: weakSelf.member_dataArr.count];
+//                if (weakSelf.member_dataArr.count > 0) {
+//                    weakSelf.emptyView.hidden = YES;
+//                    weakSelf.navigationItem.rightBarButtonItem.enabled = YES;
+//                } else {
+//                    weakSelf.emptyView.hidden = NO;
+//                    weakSelf.navigationItem.rightBarButtonItem.enabled = NO;
+//                }
+//            });
+//        }
+//    };
+//    [self.navigationController pushViewController:vc animated:YES];
 
 }
 
@@ -417,48 +365,7 @@ didCancelShareFolderFileWithFileNodeIDs:(NSArray<NSString *> *)fileNodeIDs
 }
 //保存按钮点击事件
 -(void)rightBarButtonDidClick:(UIButton*)sender{
-    //判断是否有网络
-    if (![self isNetworkAvailable]) {
-        [self showToast:NSLocalizedString(@"common_network_connect_ungelivable",nil)];
-        return;
-    }
-    //判断人数是否超出限制
-    if (self.member_dataArr.count > 50) {
-        [self showToast:NSLocalizedString(@"sharemgr_ptopshare_count_beyond", nil)];
-        return;
-    }
-    if (_isFromNoteShare && self.noteSigninChosenMemberBlock) {
-        
-        NSMutableArray *member_dataArr = [self.member_dataArr yy_modelToJSONObject];
-        self.noteSigninChosenMemberBlock(YES, member_dataArr);
-        [self.navigationController popViewControllerAnimated:YES];
-    }else{
-        //确定是否有分享人员改动
-        if (self.isFriendIn) {
-            if (self.member_dataArr.count > 0) {
-                [self zh_addLoadingView];
-                [self createFriendOutLink];
-            }
-        } else {
-            self.isDataChange = self.deletedMemberArr.count > 0||self.addMemberArr.count > 0;
-            if (self.isDataChange) {//成员有改变
-                //发起分享或取消共享
-                [self zh_addLoadingView];
-                if (self.member_dataArr.count > 0) {
-                    self.shareInfoModel = [self createShareInfoModel:self.node];
-                    [self sendShare];
-                }else{
-                    if (self.isFriendIn) {
-                        return;
-                    }
-                    [self.cloudFileDataSource cancelShareWithFileNodes:@[self.node]];
-                }
-            } else {
-                //成员无改变直接跳转到共享列表页面
-                [self.navigationController popViewControllerAnimated:YES];
-            }
-        }
-    }
+    
 }
 
 //文本框输入变化
@@ -486,163 +393,6 @@ didCancelShareFolderFileWithFileNodeIDs:(NSArray<NSString *> *)fileNodeIDs
     [self getContactDataIsFirst:NO];
 }
 
-#pragma mark - 创建好友分享
-- (void)createFriendOutLink {
-    ControllerServiceModel *controllerServiceModel = [[ControllerServiceModel alloc] init];
-    controllerServiceModel.callBackObject = self;
-    controllerServiceModel.callBackSelector = @selector(getOutLinksInfoResponse:);
-    
-    NSMutableArray *viewerLst = @[].mutableCopy;
-    [self.member_dataArr enumerateObjectsUsingBlock:^(MCShareContactSearchModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
-        [viewerLst addObject:model.telNumber];
-    }];
-    ShareManager *t_shareManager = [ShareManager sharedInstance];
-    [t_shareManager getOutLinks:self.fileIDArray catalogIDArray:self.folderIDArray putType:2 dedicatedName:self.shareInfoModel.dirFileId.name encrypt:@"0" subLinkType:0 viewerLst:viewerLst period:self.period withServiceModel:(ControllerServiceModel *)controllerServiceModel];
-}
-
-- (void)getOutLinksInfoResponse:(NSDictionary *)responseDic
-{
-    FX_TWIST_NOTIFICATION_CALLBACK_TO_MAINTHREAD(responseDic)
-    NDManagerOperation * operationResult = [responseDic objectForKey:ND_COMPONET_KEY_OPERATION_INFO];
-    
-    NSString *resultCode = nil;
-    
-    if ([responseDic objectForKey:KRESULT])
-    {
-        resultCode = [responseDic objectForKey:KRESULT];
-    }
-    else if (!operationResult.isSuccess)
-    {
-        resultCode = @"-1"; //-1表示网络异常
-    }
-    else
-    {
-        resultCode = operationResult.resultCode;
-    }
-    
-    
-    //校验返回resultCode是否合法
-    if (![self checkResultCodeValidity:resultCode])
-    {
-        [self.reLoadingView dismissLoading];
-        
-        return;
-    }
-    
-    [self.reLoadingView dismissLoading];
-   
-    GetOutLinkOutput *getOutLinkOutput = [responseDic objectForKey:ND_COMPONET_KEY_RESPONSE_INFO];
-    GetOutLinkRes *getOutLinkRes = getOutLinkOutput.getOutLinkRes;
-    NSMutableArray *getOutLinkResSet = getOutLinkRes.getOutLinkResSet;
-    GetOutLinkResOne *getOutLinkRespone = [getOutLinkResSet objectAtIndex:0];
-    
-    [[MCToastView shareInstance] showInView:[UIApplication sharedApplication].keyWindow withText:@"分享成功" hideDelay:2.0];
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-#pragma mark - 校验返回码是否合法，如果合法返回Yes，不合法，返回No，并给出提示信息
-- (BOOL)checkResultCodeValidity:(NSString *)resultCode
-{
-    //[self cancelLoadingView];
-    
-    if ([resultCode isEqualToString:@"0"])
-    {
-         //[m_loadingView hideProgress];
-        return YES;
-    }
-    else if ([resultCode isEqualToString:@"-1"] || resultCode.length == 0)
-    {
-        [self.reLoadingView dismissLoading];
-        [[YBProgressShow defaultProgress] showText:NSLocalizedString(@"common_network_connect_ungelivable", nil)
-                                            InMode:MBProgressHUDModeText
-                             OriginViewEnableTouch:NO
-                                HideAfterDelayTime:2];
-        return NO;
-    }
-    else if ([resultCode isEqualToString:@"200000400"]
-             || [resultCode isEqualToString:@"200000409"]
-             || [resultCode isEqualToString:@"9149"]
-             || [resultCode isEqualToString:@"9406"])
-    {
-        [self.reLoadingView dismissLoading];
-        if (self.shareFromType == SHARE_FOLD_FROM_FILEMANAGER)
-        {
-            [self showDetailText:NSLocalizedString(@"sharemgr_fold_not_exist", nil)
-                                                InMode:MBProgressHUDModeCustomView
-                                 OriginViewEnableTouch:NO
-                                    HideAfterDelayTime:2];
-        }
-        else
-        {
-            [[YBProgressShow defaultProgress] showText:NSLocalizedString(@"sharemgr_file_not_exist", nil)
-                                                InMode:MBProgressHUDModeText
-                                 OriginViewEnableTouch:NO
-                                    HideAfterDelayTime:2];
-        }
-        
-        return NO;
-    }
-    else if ([resultCode isEqualToString:@"9470"])
-    {
-        [self.reLoadingView dismissLoading];
-//        [[YBProgressShow defaultProgress] showText:NSLocalizedString(@"sharemgr_file_share_unsupported", nil)
-//                                            InMode:MBProgressHUDModeText
-//                             OriginViewEnableTouch:NO
-//                                HideAfterDelayTime:2];
-        [[MCToastView shareInstance] showInView:[UIApplication sharedApplication].keyWindow withText:NSLocalizedString(@"sharemgr_file_share_unsupported", nil) hideDelay:2.0];
-        return NO;
-    }else if ([resultCode isEqualToString:@"200000505"])
-    {
-        [self.reLoadingView dismissLoading];
-        [[YBProgressShow defaultProgress] showText:NSLocalizedString(@"sharemgr_file_operation_retreat", nil)
-                                            InMode:MBProgressHUDModeText
-                             OriginViewEnableTouch:NO
-                                HideAfterDelayTime:2];
-        return NO;
-    }
-
-    [self.reLoadingView dismissLoading];
-    //提示未处理此错误码
-    [[YBProgressShow defaultProgress] showText:NSLocalizedString(@"sharemgr_file_operation_failed", nil)
-                                        InMode:MBProgressHUDModeText
-                         OriginViewEnableTouch:NO
-                            HideAfterDelayTime:2];
-    return NO;
-
-}
-
-- (void)showDetailText:(NSString *)showText
-                InMode:(MBProgressHUDMode)progressMode
- OriginViewEnableTouch:(BOOL)isAbleTouch
-    HideAfterDelayTime:(float)delayTime
-{
-    if(showText)
-    {
-        NSArray *params = [NSArray arrayWithObjects:showText,
-                           [NSNumber numberWithInt:progressMode],
-                           [NSNumber numberWithBool:isAbleTouch],
-                           [NSNumber numberWithFloat:delayTime],
-                           nil];
-        
-        [self showDetailTextInMainThreadType1:params];
-    }
-}
-
-- (void)showDetailTextInMainThreadType1:(NSArray *)params
-{
-    NSString *showText = [params objectAtIndex:0];
-    MBProgressHUDMode progressMode = [[params objectAtIndex:1] intValue];
-    BOOL isAbleTouch = [[params objectAtIndex:2] boolValue];
-    float delayTime = [[params objectAtIndex:3] floatValue];
-    
-    self.mbProgressHUD.detailsLabel.text = showText;
-    self.mbProgressHUD.detailsLabel.font = [UIFont systemFontOfSize:15];
-    [self.mbProgressHUD setMode:progressMode];
-    [self.mbProgressHUD setUserInteractionEnabled:!isAbleTouch];
-    [[UIApplication sharedApplication].keyWindow addSubview:self.mbProgressHUD];
-    [self.mbProgressHUD showAnimated:YES];
-    [self.mbProgressHUD hideAnimated:YES afterDelay:delayTime];
-}
 
 #pragma mark -- 私有方法
 //改变搜索结果tableView
@@ -812,14 +562,14 @@ didCancelShareFolderFileWithFileNodeIDs:(NSArray<NSString *> *)fileNodeIDs
     if (text == nil) {
         return;
     }
-    if (self.toastView) {
-        return;
-    }
-    self.toastView = [YBProgressShow defaultProgress];
-    [self.toastView showText:text InMode:MBProgressHUDModeText OriginViewEnableTouch:YES HideAfterDelayTime:2.0f];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self.toastView = nil;
-    });
+//    if (self.toastView) {
+//        return;
+//    }
+//    self.toastView = [YBProgressShow defaultProgress];
+//    [self.toastView showText:text InMode:MBProgressHUDModeText OriginViewEnableTouch:YES HideAfterDelayTime:2.0f];
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        self.toastView = nil;
+//    });
 }
 //添加一个成员到成员数组
 -(void)addMemberModel:(MCShareContactSearchModel*)model{
@@ -969,16 +719,16 @@ didCancelShareFolderFileWithFileNodeIDs:(NSArray<NSString *> *)fileNodeIDs
 // 联系人匹配
 - (NSString *)queryContactNameByPhoneNumber:(NSString *)number
 {
-    if (number.length > 0){
-        AddressBookManager * addressBookManager =
-        [AddressBookManager obtainAddressBookManagerManagement];
-        NSString * name = [addressBookManager getAddressBookFullNameByPhoneNumber:number];
-        if ([name length] > 0) {
-        }else {
-            name = number;
-        }
-        return name;
-    }
+//    if (number.length > 0){
+//        AddressBookManager * addressBookManager =
+//        [AddressBookManager obtainAddressBookManagerManagement];
+//        NSString * name = [addressBookManager getAddressBookFullNameByPhoneNumber:number];
+//        if ([name length] > 0) {
+//        }else {
+//            name = number;
+//        }
+//        return name;
+//    }
     return nil;
 }
 //判断是不是电话号码
@@ -1008,427 +758,76 @@ didCancelShareFolderFileWithFileNodeIDs:(NSArray<NSString *> *)fileNodeIDs
     }
     return NO;
 }
+
 #pragma mark -- 发送共享
--(void)sendShare{
-    if ([[NetMonitor defaultMonitor] currentReachability] == kFXNotReachable){
-        //提示网络不可达
-        [self showAlertMessage:NSLocalizedString(@"common_network_connect_ungelivable", nil)];
-        return;
-    }
-    //分享人数上限判断
-//    NSInteger count = self.member_dataArr.count;
-//    if (MaxShareUserSum < count)
-//    {
-//        //当前没有待加入的联系人时，用此方法检查当前已分享人数
-//        [self showAlertMessage:
-//         [NSString stringWithFormat:NSLocalizedString(@"sharemgr_ptopshare_uptolimit", nil), MaxShareUserSum]];
-//        return;
-//    }
-    [self sendPointShare];
-}
 //校验是否分享给自己
 - (BOOL)isMyselfPhoneNumberWithString:(NSString*)inputNumber
 {
-    NSString *account = [[LoginManager sharedInstance] mobileNo];
-    NSString *numType = [NSString stringWithFormat:@"86%@", account];
-    NSString *numAnotherType = [NSString stringWithFormat:@"+86%@", account];
-    
-    if ([inputNumber isEqualToString:account] ||
-        [inputNumber isEqualToString:numType] ||
-        [inputNumber isEqualToString:numAnotherType])
-    {
-//        //不能分享给自己
-//        [self showAlertMessage:
-//         NSLocalizedString(@"sharemgr_ptopshare_sharetoself", nil)];
-        return YES;
-    }
+//    NSString *account = [[LoginManager sharedInstance] mobileNo];
+//    NSString *numType = [NSString stringWithFormat:@"86%@", account];
+//    NSString *numAnotherType = [NSString stringWithFormat:@"+86%@", account];
+//
+//    if ([inputNumber isEqualToString:account] ||
+//        [inputNumber isEqualToString:numType] ||
+//        [inputNumber isEqualToString:numAnotherType])
+//    {
+////        //不能分享给自己
+////        [self showAlertMessage:
+////         NSLocalizedString(@"sharemgr_ptopshare_sharetoself", nil)];
+//        return YES;
+//    }
     return NO;
 }
 
-//发送点对点分享
-- (void)sendPointShare{
-    //回调模型
-    ControllerServiceModel *controllerServiceModel = [[ControllerServiceModel alloc] init];
-    controllerServiceModel.callBackObject = self;
-    controllerServiceModel.callBackSelector = @selector(sendPointShareResponse:);
 
-    NSArray *dirFileIdList = nil;
-
-    if (self.shareInfoModel.dirFileId){
-        dirFileIdList = [NSArray arrayWithObject:self.shareInfoModel.dirFileId];
-    }else{
-        FXTRACE(FXT_INFO_LVL, @"sendPointShare", @"self.m_shareInfoModel.m_dirFileId is nil.");
-    }
-
-    ShareManager * shareManager = [ShareManager sharedInstance];
-    self.sendSuccessNumbers = 0;
-    self.sendFailNumbers = 0;
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-    if (self.addMemberArr.count > 0) {
-        shareManager.member_oprType = 1;
-        for (int i = 0; i < self.addMemberArr.count; i++) {
-            MCShareContactSearchModel * info = (MCShareContactSearchModel*)self.addMemberArr[i];
-            [array addObject:info.telNumber];
-        }
-        NSArray *recvContactslList = [NSArray arrayWithArray:array];
-        [shareManager inviteShare:recvContactslList
-                withDirFileIDList:dirFileIdList
-                 withServiceModel:controllerServiceModel];
-    }
-    if(self.deletedMemberArr.count > 0) {
-        shareManager.member_oprType = 2;
-        //获取电话号码数组
-        for (int i = 0; i < self.deletedMemberArr.count; i++) {
-            MCShareContactSearchModel * info = (MCShareContactSearchModel*)self.deletedMemberArr[i];
-            [array addObject:info.telNumber];
-        }
-        NSArray *recvContactslList = [NSArray arrayWithArray:array];
-        [shareManager inviteShare:recvContactslList
-                withDirFileIDList:dirFileIdList
-                 withServiceModel:controllerServiceModel];
-    }
-}
-- (void)sendPointShareResponse:(NSDictionary *)responseDic{
-    [self.reLoadingView hideProgress];
-    [ShareManager sharedInstance].member_oprType = 1;// 改变到默认状态，避免下次分享文件时，此值为删除成员状态
-    FX_TWIST_NOTIFICATION_CALLBACK_TO_MAINTHREAD(responseDic)
-    NSString *resultCode = nil;
-    
-    NDManagerOperation * operationResult = [responseDic objectForKey:ND_COMPONET_KEY_OPERATION_INFO];
-    
-    if ([responseDic objectForKey:KRESULT]){
-        resultCode = [responseDic objectForKey:KRESULT];
-    }else if (!operationResult.isSuccess){
-        resultCode = @"-1";
-    }else{
-        resultCode = operationResult.resultCode;
-    }
-    
-    InviteShareInput *inviteShareInput = [responseDic objectForKey:ND_COMPONET_KEY_REQUEST_INFO];
-    
-    NSArray *shareeInfoList = nil;
-    
-    if (inviteShareInput.inviteShareReq.inviteInfo.shareeInfoList){
-        shareeInfoList = inviteShareInput.inviteShareReq.inviteInfo.shareeInfoList;
-    }else{
-        shareeInfoList = [responseDic objectForKey:@"sourceData"];
-    }
-    
-    InviteShareOutput *inviteShareOutput = [responseDic objectForKey:ND_COMPONET_KEY_RESPONSE_INFO];
-    InviteShareRes *inviteShareRes = inviteShareOutput.inviteShareRes;
-    
-    NSArray *shareRspInfoListArray = inviteShareRes.shareRspInfoList;
-    
-    if ([resultCode isEqualToString:@"0"]){//成功
-        for (ShareRspInfo *shareResInfo in shareRspInfoListArray){
-            if ([shareResInfo.result isEqualToString:@"0"]){//共享成功
-                self.sendSuccessNumbers++;
-            }else if ([shareResInfo.result isEqualToString:@"9470"]){//文件包含敏感字
-                self.isFileExistSensitiveWords = YES;
-            }else{//共享失败
-                self.sendFailNumbers++;
-            }
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            //传值跳转
-            if (self.block) {
-                self.block(self.isDataChange);
-            }
-            [self.navigationController popViewControllerAnimated:YES];
-        });
-    }else if ([resultCode isEqualToString:@"-1"]){//网络异常
-        self.isNetWrokError = YES;
-    }else if ([resultCode isEqualToString:@"200000505"]){//功能暂时关闭
-        self.isShare_Retreat = YES;
-    }else if([resultCode isEqualToString:@"208000504"]){//人数超过上限
-        [self showToast:@"共享人员超出限制"];
-        return;
-    }else if ([resultCode isEqualToString:@"208000510"]) {
-        [self showToast:NSLocalizedString(@"会员超过文件共享人数上限", nil)];
-        return;
-    }else if ([resultCode isEqualToString:@"208000511"]) {
-        [self showToast:NSLocalizedString(@"非会员超过文件共享人数上限", nil)];
-        return;
-    }else if ([resultCode isEqualToString:@"208000512"]) {
-        [self showToast:NSLocalizedString(@"会员超过文件夹共享人数上限", nil)];
-        return;
-    }else if ([resultCode isEqualToString:@"208000513"]) {
-        [self showToast:NSLocalizedString(@"非会员不能共享文件夹", nil)];
-        return;
-    }else if ([resultCode isEqualToString:@"208000509"]) {
-        [self showToast:NSLocalizedString(@"系统级不支持文件夹共享", nil)];
-        return;
-    }else{//分享失败
-        self.sendFailNumbers = self.sendFailNumbers + [shareeInfoList count];
-    }
-    [self dealWithSendPointShareResponseResult];
-}
-
-- (void)dealWithSendPointShareResponseResult
-{
-    [self.reLoadingView hideProgress];
-    
-    NSString *showMessage = [NSString stringWithFormat:@"您成功发送共享给%ld个用户，失败%ld个",
-                             (long)self.sendSuccessNumbers,(long)self.sendFailNumbers];
-    
-    if (self.isFileExistSensitiveWords){
-        self.isFileExistSensitiveWords = NO;
-        [self showAlertMessageDelay:NSLocalizedString(@"sharemgr_file_exist_sensitive_word", nil)];
-        [self safeDismissModalViewControllerAnimatedV2:YES];
-    }else if (self.isNetWrokError){
-        self.isNetWrokError = NO;
-        //网络异常提示
-        [self showToast:NSLocalizedString(@"common_network_connect_ungelivable",nil)];
-    }else if (self.isShare_Retreat){
-        self.isShare_Retreat = NO;
-        [[YBProgressShow defaultProgress] showText:NSLocalizedString(@"sharemgr_file_operation_retreat", nil)
-                                            InMode:MBProgressHUDModeText
-                             OriginViewEnableTouch:NO
-                                HideAfterDelayTime:2];
-    }else{
-        if (self.sendSuccessNumbers == 0){
-            [self showAlertMessage:NSLocalizedString(@"sharemgr_ptopshare_failed", nil)];
-        }else if (self.sendSuccessNumbers > 0){
-            [self sendNotification];
-            [self showToast:NSLocalizedString(@"filemgr_save_success", nil)];
-//            [self showAlertMessageDelay:showMessage];
-            [self safeDismissModalViewControllerAnimatedV2:YES];
-        }
-    }
-}
 - (void)showAlertMessageDelay:(NSString *)msg
 {
     //延迟0.5秒提示用户
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.5f * NSEC_PER_SEC);
-    
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        
-        if (msg)
-        {
-            McloudAlertView* alertView =
-            [[McloudAlertView alloc]initWithTitle:@""
-                                          message:msg
-                                         delegate:nil
-                                cancelButtonTitle:NSLocalizedString(@"common_confirm", nil)
-                                otherButtonTitles:nil];
-            [alertView show];
-        }
-        else
-        {
-            FXTRACE(FXT_INFO_LVL, @"showAlertMessage", @"show msg is nil.");
-        }
-    });
+//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.5f * NSEC_PER_SEC);
+//
+//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//
+//        if (msg)
+//        {
+//            McloudAlertView* alertView =
+//            [[McloudAlertView alloc]initWithTitle:@""
+//                                          message:msg
+//                                         delegate:nil
+//                                cancelButtonTitle:NSLocalizedString(@"common_confirm", nil)
+//                                otherButtonTitles:nil];
+//            [alertView show];
+//        }
+//        else
+//        {
+//            FXTRACE(FXT_INFO_LVL, @"showAlertMessage", @"show msg is nil.");
+//        }
+//    });
 }
 - (void)showAlertMessage:(NSString *)msg
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (msg){
-            McloudAlertView* alertView =
-            [[McloudAlertView alloc]initWithTitle:@"" message:msg delegate:nil  cancelButtonTitle:NSLocalizedString(@"common_confirm", nil) otherButtonTitles:nil];
-            [alertView show];
-        }
-        else{
-            FXTRACE(FXT_INFO_LVL, @"showAlertMessage", @"show msg is nil.");
-        }
-    });
-}
-- (void)sendNotification{
-    NSString *IDString = self.shareInfoModel.dirFileId.objID;
-    
-    //add by zhuqian 发送分享成功的通知（后续可以修改，暂时使用）
-    [[NSNotificationCenter defaultCenter] postNotificationName:CLOUD_SHARE_FINISHEDSUCCESS object:IDString];
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        if (msg){
+//            McloudAlertView* alertView =
+//            [[McloudAlertView alloc]initWithTitle:@"" message:msg delegate:nil  cancelButtonTitle:NSLocalizedString(@"common_confirm", nil) otherButtonTitles:nil];
+//            [alertView show];
+//        }
+//        else{
+//            FXTRACE(FXT_INFO_LVL, @"showAlertMessage", @"show msg is nil.");
+//        }
+//    });
 }
 
-- (ShareInfoModel *)createShareInfoModel:(FileNode *)fileNode
-{
-    //封装分享数据
-    ShareInfoModel *shareInfoModel = [[ShareInfoModel alloc] init];
-    DirFileID *dirFileId = [[DirFileID alloc] init] ;
-    dirFileId.objID = fileNode.fileNodeID;
-    dirFileId.name = fileNode.name;
-    if ([fileNode isFile]){
-        shareInfoModel.shareFromType = SHARE_FILE_FROM_FILEMANAGER;
-        dirFileId.objType = 1;
-    }else{
-        shareInfoModel.shareFromType = SHARE_FOLD_FROM_FILEMANAGER;
-        dirFileId.objType = 2;
-    }
-    shareInfoModel.dirFileId = dirFileId;
-    shareInfoModel.fileType = fileNode.type;
-    
-    if (self.shareInfoModel.shareFromType == SHARE_FILE_FROM_FILEMANAGER && fileNode.type == PhotoType)
-    {
-        [self getPhotoShareBigThumbWithFileNode:fileNode];
-    }else if(self.shareInfoModel.shareFromType == SHARE_FORM_HEPAI ||self.shareInfoModel.shareFromType == SHARE_FORM_HEPAI_ALBUM) {
-        if (self.shareInfoModel.remoteURL.length >0){
-            //服务器
-            UIImage *bigThumbImage = [[SDImageCache sharedImageCache] imageFromCacheForKey:self.shareInfoModel.remoteURL];
-            if (bigThumbImage != nil)
-            {
-                self.shareInfoModel.bigThumbImage = bigThumbImage;
-            }else{
-                //小缩列图
-                if (self.shareInfoModel.thumbURL.length > 0) {
-                    UIImage *smailThumbImage = [[SDImageCache sharedImageCache] imageFromCacheForKey:self.shareInfoModel.thumbURL];
-                    if (smailThumbImage)
-                    {
-                        self.shareInfoModel.thumbImage = smailThumbImage;
-                        
-                    }else{
-                        //下载小缩列图
-                        [self getPhotoShareBigThumbWithFileNode:fileNode];
-                    }
-                }else{
-                    //使用默认图片
-                    NSString *imagePath  = [[NSBundle mainBundle]pathForResource:@"icon" ofType:@"png"];
-                    NSData *imageData = [NSData dataWithContentsOfFile:imagePath];
-                    self.shareInfoModel.thumbImage = [UIImage imageWithData:imageData];
-                }
-            }
-        }else{
-            //小缩列图
-            if (self.shareInfoModel.thumbURL.length > 0)
-            {
-                UIImage *smailThumbImage = [[SDImageCache sharedImageCache] imageFromCacheForKey:self.shareInfoModel.thumbURL];
-                if (smailThumbImage)
-                {
-                    self.shareInfoModel.thumbImage = smailThumbImage;
-                    
-                }
-                else
-                {
-                    //下载小缩列图
-                    [self getPhotoShareBigThumbWithFileNode:fileNode];
-                }
-                
-            }else{
-                //使用默认图片
-                NSString *imagePath  = [[NSBundle mainBundle]pathForResource:@"icon@120" ofType:@"png"];
-                NSData *imageData = [NSData dataWithContentsOfFile:imagePath];
-                self.shareInfoModel.thumbImage = [UIImage imageWithData:imageData];
-            }
-        }
-    }
-    return shareInfoModel;
-}
-//add by zhuqian 获取大缩略图路径
-- (NSString *)returnBigThumbImagePathForKey:(NSString *)key
-{
-    NSString *diskCachePath = KUSERCATHEIMGPATH;
-    
-    const char *str = [key UTF8String];
-    unsigned char r[CC_MD5_DIGEST_LENGTH];
-    CC_MD5(str, (CC_LONG)strlen(str), r);
-    NSString *filename = [NSString stringWithFormat:@"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
-                          r[0], r[1], r[2], r[3], r[4], r[5],
-                          r[6], r[7], r[8], r[9], r[10], r[11],
-                          r[12], r[13], r[14], r[15]];
-    return [diskCachePath stringByAppendingPathComponent:filename];
-}
-
-- (void)getPhotoShareBigThumbWithFileNode:(FileNode*)node
-{
-    //（1）来自网盘(文件)，（2）图片。
-    if (self.shareInfoModel.shareFromType == SHARE_FILE_FROM_FILEMANAGER && node.type == PhotoType)
-    {
-        
-        NSString *bigThumbImagePath = nil;
-        UIImage *bigThumbImage = nil;
-        NSString *bigThumbUrl = node.bigThumbURL;
-        if (bigThumbUrl == nil)
-        {
-            NSString *fileName = [self getFileNameFromFileId:node.fileNodeID];
-            bigThumbImagePath = [NSString stringWithFormat:@"%@/%@",KUSERCATHEMIDTHUMBPATH,fileName];
-            bigThumbImage = [UIImage imageWithContentsOfFile:bigThumbImagePath];
-            
-            if (bigThumbImage == nil)
-            {
-                bigThumbImagePath = [NSString stringWithFormat:@"%@/%@",KUSERTMPOFFLINEBIGTHUMBPATH,fileName];
-                bigThumbImage = [UIImage imageWithContentsOfFile:bigThumbImagePath];
-            }
-        }
-        else
-        {
-            bigThumbImagePath = [self returnBigThumbImagePathForKey:node.bigThumbURL];
-            bigThumbImage = [[SDImageCache sharedImageCache] imageFromCacheForKey:node.bigThumbURL];
-            
-        }
-        FXTRACE(FXT_DEBUG_LVL, KLOG_IPHONE_UI_FILEMANAGER,
-                @"bigThumbImage:%@,bigThumbImagePath:%@",bigThumbImage,bigThumbImagePath);
-        
-        if (bigThumbImage){
-            
-            self.shareInfoModel.bigThumbImage = bigThumbImage;
-            self.shareInfoModel.picturePath = bigThumbImagePath;
-            self.shareInfoModel.remoteURL = node.presentURL ?node.presentURL :
-            [[DatabaseManager shareInstance] getBigThumbPathWithContentID:node.fileNodeID];
-            self.shareInfoModel.thumbURL = node.thumbURL?node.thumbURL:@"";
-        }
-    }else if(self.shareInfoModel.shareFromType == SHARE_FORM_HEPAI || self.shareInfoModel.shareFromType == SHARE_FORM_HEPAI_ALBUM)
-    {
-        [[SDWebImageManager sharedManager] loadImageWithURL:[NSURL URLWithString:self.shareInfoModel.thumbURL] options:SDWebImageRetryFailed progress:nil completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
-            if (image) {
-                [self webImageManager:nil didFinishWithImage:image fileNode:node];
-            }
-            else {
-                [self webImageManager:nil didFailWithImage:error];
-            }
-        }];
-        [self.reLoadingView showProgressWithTitle:NSLocalizedString(@"common_loading", nil)];
-    }
-}
-- (NSString *)getFileNameFromFileId:(NSString *)fileId
-{
-    //处理刚刚上传的图片，没有bigThumbURL的场景
-    NSArray *modelArray = [[DatabaseManager shareInstance]
-                           queryUploadFileRecordByFileNodeID:fileId];
-    NSString *fileName = nil;
-    for (UploadedFileModel *fileModel in modelArray)
-    {
-        if (fileModel.fileName != nil)
-        {
-            fileName = fileModel.fileName;
-        }
-    }
-    
-    return fileName;
-}
-- (void)webImageManager:(SDWebImageManager *)imageManager didFinishWithImage:(UIImage *)image fileNode:(FileNode*)node{
-    if (self.shareInfoModel.shareFromType == SHARE_FORM_HEPAI || self.shareInfoModel.shareFromType == SHARE_FORM_HEPAI_ALBUM )
-    {
-        self.shareInfoModel.bigThumbImage = image;
-        self.shareInfoModel.thumbImage = image;
-    }else{
-        NSString *bigThumbImagePath = [self returnBigThumbImagePathForKey:node.bigThumbURL];
-        self.shareInfoModel.picturePath = bigThumbImagePath;
-        self.shareInfoModel.bigThumbImage = image;
-        self.shareInfoModel.remoteURL = node.presentURL ?node.presentURL :
-        [[DatabaseManager shareInstance] getBigThumbPathWithContentID:node.fileNodeID];
-        self.shareInfoModel.thumbURL = node.thumbURL?node.thumbURL:@"";
-    }
-}
-//获取大缩列图失败
-- (void)webImageManager:(SDWebImageManager *)imageManager didFailWithImage:(NSError *)error{
-    FXTRACE(FXT_DEBUG_LVL, KLOG_IPHONE_UI_FILEMANAGER,
-            @"error:%@,error.code:%d",error,error.code);
-    [self.reLoadingView hideProgress];
-}
-
-//判断网络失败
--(BOOL)isNetworkAvailable{
-    return [[NetMonitor defaultMonitor] currentReachability] != kFXNotReachable;
-}
 //添加显示的loading
 -(void)zh_addLoadingView{
-    if (!self.reLoadingView) {
-        LoadingProgressView *tmpLoadVm = [[LoadingProgressView alloc] init];
-        self.reLoadingView = tmpLoadVm;
-    }
-    if (self.isFriendIn) {
-        [self.reLoadingView showProgressWithTitle:@"正在分享"];
-    } else {
-       [self.reLoadingView showProgressWithTitle:NSLocalizedString(@"common_waiting", nil)];
-    }
+//    if (!self.reLoadingView) {
+//        LoadingProgressView *tmpLoadVm = [[LoadingProgressView alloc] init];
+//        self.reLoadingView = tmpLoadVm;
+//    }
+//    if (self.isFriendIn) {
+//        [self.reLoadingView showProgressWithTitle:@"正在分享"];
+//    } else {
+//       [self.reLoadingView showProgressWithTitle:NSLocalizedString(@"common_waiting", nil)];
+//    }
 }
 
 - (void)dealloc {
@@ -1473,61 +872,47 @@ didCancelShareFolderFileWithFileNodeIDs:(NSArray<NSString *> *)fileNodeIDs
     return _deletedMemberArr;
 }
 
-- (UIView *)emptyView {
-    if (!_emptyView) {
-        _emptyView = [[UIView alloc] init];
-        _emptyView.backgroundColor = gMCColorWithHex(0xF8F9FB, 1.0);
-        _emptyView.hidden = YES;
-        [self.view addSubview:_emptyView];
-        
-        __weak typeof(self) weakSelf = self;
-        [_emptyView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(weakSelf.pushContactButton.mas_bottom);
-            make.left.right.bottom.mas_offset(0);
-        }];
-        
-        UIImageView *emptyIV = [[UIImageView alloc] init];
-        emptyIV.image = [UIImage imageNamed:@"nofriends_empty_img"];
-        [_emptyView addSubview:emptyIV];
-        
-        
-        [emptyIV mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_offset(106);
-            make.centerX.equalTo(weakSelf.view.mas_centerX);
-            make.width.mas_equalTo(221);
-            make.height.mas_equalTo(140);
-        }];
-        
-        UILabel *tipsLabel = [[UILabel alloc] init];
-        tipsLabel.text = @"未添加好友";
-        tipsLabel.textColor = gMCColorWithHex(0x001026, 0.3);
-        tipsLabel.textAlignment = NSTextAlignmentCenter;
-        tipsLabel.font = [UIFont systemFontOfSize:14];
-        [_emptyView addSubview:tipsLabel];
-        
-        [tipsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(emptyIV.mas_bottom).mas_offset(16);
-            make.left.right.mas_offset(0);
-            make.height.mas_equalTo(20);
-        }];
-    }
-    return _emptyView;
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+// todo
+//- (UIView *)emptyView {
+//    if (!_emptyView) {
+//        _emptyView = [[UIView alloc] init];
+//        _emptyView.backgroundColor = gMCColorWithHex(0xF8F9FB, 1.0);
+//        _emptyView.hidden = YES;
+//        [self.view addSubview:_emptyView];
+//
+//        __weak typeof(self) weakSelf = self;
+//        [_emptyView mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.top.equalTo(weakSelf.pushContactButton.mas_bottom);
+//            make.left.right.bottom.mas_offset(0);
+//        }];
+//
+//        UIImageView *emptyIV = [[UIImageView alloc] init];
+//        emptyIV.image = [UIImage imageNamed:@"nofriends_empty_img"];
+//        [_emptyView addSubview:emptyIV];
+//
+//
+//        [emptyIV mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.top.mas_offset(106);
+//            make.centerX.equalTo(weakSelf.view.mas_centerX);
+//            make.width.mas_equalTo(221);
+//            make.height.mas_equalTo(140);
+//        }];
+//
+//        UILabel *tipsLabel = [[UILabel alloc] init];
+//        tipsLabel.text = @"未添加好友";
+//        tipsLabel.textColor = gMCColorWithHex(0x001026, 0.3);
+//        tipsLabel.textAlignment = NSTextAlignmentCenter;
+//        tipsLabel.font = [UIFont systemFontOfSize:14];
+//        [_emptyView addSubview:tipsLabel];
+//
+//        [tipsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.top.equalTo(emptyIV.mas_bottom).mas_offset(16);
+//            make.left.right.mas_offset(0);
+//            make.height.mas_equalTo(20);
+//        }];
+//    }
+//    return _emptyView;
+//}
 
 @end
 

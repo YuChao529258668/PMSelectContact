@@ -6,16 +6,18 @@
 //  Copyright © 2018年 epro. All rights reserved.
 //
 
-#import "MCBaseViewController.h"
-#import "ShareInfoModel.h"
-
+#import <UIKit/UIKit.h>
+#import "MCFunctionDefines.h"
 
 typedef void(^memberManagerChangeBlock)(BOOL isChange);
 typedef void(^ChosenMemberDataBlock)(BOOL isSuccess, NSArray * _Nullable members);
-@interface MCMemberManagerViewCotroller : MCBaseViewController
+
+
+//@interface MCMemberManagerViewCotroller : MCBaseViewController
+@interface MCMemberManagerViewCotroller : UIViewController
+
 //从共享界面传输过来的值
 @property(nonatomic,strong)NSMutableArray * member_dataArr;//成员列表数组
-@property(nonatomic,strong)FileNode * node;
 @property(nonatomic,assign)BOOL isFromNoteShare;
 //xib布局
 @property (weak, nonatomic) IBOutlet UITextField *textField;
@@ -32,11 +34,6 @@ typedef void(^ChosenMemberDataBlock)(BOOL isSuccess, NSArray * _Nullable members
 @property (weak, nonatomic) IBOutlet UIView *addContactView;
 
 @property (nonatomic, assign) BOOL isFriendIn;
-
-@property (nonatomic, strong) NSMutableArray *fileIDArray; //文件ID;
-@property (nonatomic, strong) NSMutableArray *folderIDArray;//文件夹ID
-@property (nonatomic, assign) NSInteger period;//有效期
-@property (nonatomic, assign) ShareFromType shareFromType;
 
 @end
 
