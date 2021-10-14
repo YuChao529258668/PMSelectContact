@@ -21,6 +21,7 @@
 #import "MCContactObject.h"
 
 //#import "AddressBookManager.h" // todo
+#import "AddressBookLocalHelper.h"
 
 #import "NSString+Extend.h"
 #import "pinyin.h"
@@ -97,8 +98,8 @@ MCContactsSearchListViewDelegate>
 //    [self zh_addLoadingView];
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         //1.获取通讯录中乱序的联系人数组 sourceArr
-//        NSMutableArray * sourcesArr = [AddressBookManager getAllSearchPeoplePhoneContactsInfo];
-//        self.search_originArr = sourcesArr;
+        NSMutableArray * sourcesArr = [AddressBookLocalHelper getAllSearchPeoplePhoneContactsInfo];
+        self.search_originArr = sourcesArr;
         dispatch_async(dispatch_get_main_queue(), ^{
 //            [self.reLoadingView hideProgress];
 //            self.member_tableView.hidden = NO;
@@ -305,6 +306,7 @@ MCContactsSearchListViewDelegate>
 }
 //跳转到通讯录
 - (IBAction)pushToContactButtonAction:(UIButton *)sender {
+    // todo
     // 先判断是否有权限
 //    if (![AddressBookManager checkAddressBookAccessPermissions]) {
 //        [self
@@ -312,37 +314,37 @@ MCContactsSearchListViewDelegate>
 //        return;
 //    }
 //
-//    // 将成员数组传给联系人界面
-//    MCContactsViewController * vc = [[MCContactsViewController alloc] init];
-//
-//    __weak typeof(self) weakSelf = self;
-//    vc.addedBlock = ^(NSArray<MCContactObject *> *contacts) {
-//        if (contacts.count == 0) {//没有选择联系人
-//            return ;
-//        }else{
-//            for (MCContactObject * objc in contacts) {
-//                //模型转换
-//                MCShareContactSearchModel * model = [weakSelf getContactModelWithContactObjc:objc];
-//                //智能添加到成员数组
-//                [weakSelf addMemberModel:model];
-//                //更新添加成员数组
-//                [weakSelf updataMemberArrWithModel:model arr_input:self.addMemberArr arr_output:self.deletedMemberArr arr_origin:self.tempMemberArr type:1];
-//            }
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [weakSelf.member_tableView reloadData];
-//                //改变人员数量
-//                weakSelf.memberCountLabel.text = [weakSelf getMemberCountString: weakSelf.member_dataArr.count];
-//                if (weakSelf.member_dataArr.count > 0) {
-//                    weakSelf.emptyView.hidden = YES;
-//                    weakSelf.navigationItem.rightBarButtonItem.enabled = YES;
-//                } else {
-//                    weakSelf.emptyView.hidden = NO;
-//                    weakSelf.navigationItem.rightBarButtonItem.enabled = NO;
-//                }
-//            });
-//        }
-//    };
-//    [self.navigationController pushViewController:vc animated:YES];
+    // 将成员数组传给联系人界面
+    MCContactsViewController * vc = [[MCContactsViewController alloc] init];
+
+    __weak typeof(self) weakSelf = self;
+    vc.addedBlock = ^(NSArray<MCContactObject *> *contacts) {
+        if (contacts.count == 0) {//没有选择联系人
+            return ;
+        }else{
+            for (MCContactObject * objc in contacts) {
+                //模型转换
+                MCShareContactSearchModel * model = [weakSelf getContactModelWithContactObjc:objc];
+                //智能添加到成员数组
+                [weakSelf addMemberModel:model];
+                //更新添加成员数组
+                [weakSelf updataMemberArrWithModel:model arr_input:self.addMemberArr arr_output:self.deletedMemberArr arr_origin:self.tempMemberArr type:1];
+            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.member_tableView reloadData];
+                //改变人员数量
+                weakSelf.memberCountLabel.text = [weakSelf getMemberCountString: weakSelf.member_dataArr.count];
+                if (weakSelf.member_dataArr.count > 0) {
+                    weakSelf.emptyView.hidden = YES;
+                    weakSelf.navigationItem.rightBarButtonItem.enabled = YES;
+                } else {
+                    weakSelf.emptyView.hidden = NO;
+                    weakSelf.navigationItem.rightBarButtonItem.enabled = NO;
+                }
+            });
+        }
+    };
+    [self.navigationController pushViewController:vc animated:YES];
 
 }
 
@@ -365,7 +367,22 @@ MCContactsSearchListViewDelegate>
 }
 //保存按钮点击事件
 -(void)rightBarButtonDidClick:(UIButton*)sender{
-    
+    //判断是否有网络
+//    if (![self isNetworkAvailable]) {
+//        [self showToast:NSLocalizedString(@"common_network_connect_ungelivable",nil)];
+//        return;
+//    }
+    //判断人数是否超出限制
+    if (self.member_dataArr.count > 50) {
+        [self showToast:NSLocalizedString(@"sharemgr_ptopshare_count_beyond", nil)];
+        return;
+    }
+    if (_isFromNoteShare && self.noteSigninChosenMemberBlock) {
+        // MCShareContactSearchModel
+//        NSMutableArray *member_dataArr = [self.member_dataArr yy_modelToJSONObject];
+//        self.noteSigninChosenMemberBlock(YES, member_dataArr);
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 //文本框输入变化
@@ -719,16 +736,18 @@ MCContactsSearchListViewDelegate>
 // 联系人匹配
 - (NSString *)queryContactNameByPhoneNumber:(NSString *)number
 {
-//    if (number.length > 0){
+    if (number.length > 0){
 //        AddressBookManager * addressBookManager =
 //        [AddressBookManager obtainAddressBookManagerManagement];
 //        NSString * name = [addressBookManager getAddressBookFullNameByPhoneNumber:number];
-//        if ([name length] > 0) {
-//        }else {
-//            name = number;
-//        }
-//        return name;
-//    }
+        NSString * name = [AddressBookLocalHelper getAddressBookFullNameByPhoneNumber:number];
+
+        if ([name length] > 0) {
+        }else {
+            name = number;
+        }
+        return name;
+    }
     return nil;
 }
 //判断是不是电话号码

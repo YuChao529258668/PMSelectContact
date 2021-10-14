@@ -26,6 +26,7 @@
 
 //#import "MCSearchCoreManager.h"
 //#import "AddressBookManager.h"
+#import "AddressBookLocalHelper.h"
 
 static NSString *const cellReuseIdentifier = @"cellReuseIdentifier";
 
@@ -280,8 +281,7 @@ MCAlertViewDelegate
 
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         //1.获取通讯录中乱序的联系人数组 sourceArr
-//        NSMutableArray *sourcesArr = [AddressBookManager getAllSearchPeoplePhoneContactsInfo];
-        NSMutableArray *sourcesArr = nil;
+        NSMutableArray *sourcesArr = [AddressBookLocalHelper getAllSearchPeoplePhoneContactsInfo];
         //2.获取排好序的数据源，电话号码合法性检测处理
         self.dataSource = [[self getRankedDataArrWithArr:sourcesArr] mutableCopy];
         

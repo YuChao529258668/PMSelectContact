@@ -28,9 +28,14 @@
 }
 
 - (void)jump {
+    // NSContactsUsageDescription
     MCMemberManagerViewCotroller * vc = [[MCMemberManagerViewCotroller alloc] init];
-    vc.modalPresentationStyle = 0;
-    [self presentViewController:vc animated:YES completion:nil];
+    vc.isFromNoteShare = YES;
+    //    vc.noteSigninChosenMemberBlock = memberBlock;
+
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
+    nc.modalPresentationStyle = 0;
+    [self presentViewController:nc animated:YES completion:nil];
 }
 
 @end
