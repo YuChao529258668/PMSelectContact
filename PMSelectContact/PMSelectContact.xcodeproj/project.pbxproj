@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D2F3E272717C90A00AAA2F2 /* MCMemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D2F3E1F2717C90A00AAA2F2 /* MCMemberTableViewCell.m */; };
+		0D2F3E282717C90A00AAA2F2 /* MCShareContactSearchModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D2F3E202717C90A00AAA2F2 /* MCShareContactSearchModel.m */; };
+		0D2F3E292717C90A00AAA2F2 /* MCMemberManagerViewCotroller.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D2F3E212717C90A00AAA2F2 /* MCMemberManagerViewCotroller.m */; };
+		0D2F3E2A2717C90A00AAA2F2 /* MCMemberTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D2F3E232717C90A00AAA2F2 /* MCMemberTableViewCell.xib */; };
+		0D2F3E2B2717C90A00AAA2F2 /* MCMemberManagerViewCotroller.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D2F3E252717C90A00AAA2F2 /* MCMemberManagerViewCotroller.xib */; };
 		0D8D8DC82716C5F700494FC5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D8DC72716C5F700494FC5 /* AppDelegate.m */; };
 		0D8D8DCB2716C5F700494FC5 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D8DCA2716C5F700494FC5 /* SceneDelegate.m */; };
 		0D8D8DCE2716C5F700494FC5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D8DCD2716C5F700494FC5 /* ViewController.m */; };
@@ -33,6 +38,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0D2F3E1F2717C90A00AAA2F2 /* MCMemberTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCMemberTableViewCell.m; sourceTree = "<group>"; };
+		0D2F3E202717C90A00AAA2F2 /* MCShareContactSearchModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCShareContactSearchModel.m; sourceTree = "<group>"; };
+		0D2F3E212717C90A00AAA2F2 /* MCMemberManagerViewCotroller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCMemberManagerViewCotroller.m; sourceTree = "<group>"; };
+		0D2F3E222717C90A00AAA2F2 /* MCMemberTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCMemberTableViewCell.h; sourceTree = "<group>"; };
+		0D2F3E232717C90A00AAA2F2 /* MCMemberTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MCMemberTableViewCell.xib; sourceTree = "<group>"; };
+		0D2F3E242717C90A00AAA2F2 /* MCShareContactSearchModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCShareContactSearchModel.h; sourceTree = "<group>"; };
+		0D2F3E252717C90A00AAA2F2 /* MCMemberManagerViewCotroller.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MCMemberManagerViewCotroller.xib; sourceTree = "<group>"; };
+		0D2F3E262717C90A00AAA2F2 /* MCMemberManagerViewCotroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCMemberManagerViewCotroller.h; sourceTree = "<group>"; };
 		0D8D8DC32716C5F700494FC5 /* PMSelectContact.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PMSelectContact.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D8D8DC62716C5F700494FC5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0D8D8DC72716C5F700494FC5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -95,6 +108,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D2F3E1E2717C90A00AAA2F2 /* Share */ = {
+			isa = PBXGroup;
+			children = (
+				0D2F3E262717C90A00AAA2F2 /* MCMemberManagerViewCotroller.h */,
+				0D2F3E212717C90A00AAA2F2 /* MCMemberManagerViewCotroller.m */,
+				0D2F3E252717C90A00AAA2F2 /* MCMemberManagerViewCotroller.xib */,
+				0D2F3E222717C90A00AAA2F2 /* MCMemberTableViewCell.h */,
+				0D2F3E1F2717C90A00AAA2F2 /* MCMemberTableViewCell.m */,
+				0D2F3E232717C90A00AAA2F2 /* MCMemberTableViewCell.xib */,
+				0D2F3E242717C90A00AAA2F2 /* MCShareContactSearchModel.h */,
+				0D2F3E202717C90A00AAA2F2 /* MCShareContactSearchModel.m */,
+			);
+			path = Share;
+			sourceTree = "<group>";
+		};
 		0D8D8DBA2716C5F700494FC5 = {
 			isa = PBXGroup;
 			children = (
@@ -133,6 +161,7 @@
 		0D8D8DDF2716C61200494FC5 /* New Group */ = {
 			isa = PBXGroup;
 			children = (
+				0D2F3E1E2717C90A00AAA2F2 /* Share */,
 				0D8D8DFE2716C83A00494FC5 /* Tool */,
 				0D8D8DEA2716C6E300494FC5 /* VC */,
 				0D8D8DEB2716C7B200494FC5 /* AddressBook */,
@@ -264,6 +293,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D8D8DD62716C5FB00494FC5 /* LaunchScreen.storyboard in Resources */,
+				0D2F3E2A2717C90A00AAA2F2 /* MCMemberTableViewCell.xib in Resources */,
+				0D2F3E2B2717C90A00AAA2F2 /* MCMemberManagerViewCotroller.xib in Resources */,
 				0D8D8DD32716C5FB00494FC5 /* Assets.xcassets in Resources */,
 				0D8D8DD12716C5F700494FC5 /* Main.storyboard in Resources */,
 			);
@@ -288,8 +319,11 @@
 				0D8D8DD92716C5FB00494FC5 /* main.m in Sources */,
 				0D8D8DCB2716C5F700494FC5 /* SceneDelegate.m in Sources */,
 				0D8D8DFB2716C7B200494FC5 /* MCKeyValueModel.m in Sources */,
+				0D2F3E282717C90A00AAA2F2 /* MCShareContactSearchModel.m in Sources */,
+				0D2F3E272717C90A00AAA2F2 /* MCMemberTableViewCell.m in Sources */,
 				0D8D8DF82716C7B200494FC5 /* ContactModel.m in Sources */,
 				0D8D8DE92716C69500494FC5 /* MCContactObject.m in Sources */,
+				0D2F3E292717C90A00AAA2F2 /* MCMemberManagerViewCotroller.m in Sources */,
 				0D8D8E182716CB4500494FC5 /* MCContactsSearchListViewCell.m in Sources */,
 				0D8D8E0E2716CAAF00494FC5 /* UIColor+extend.m in Sources */,
 				0D8D8E072716C8EA00494FC5 /* MCAlertView.m in Sources */,
