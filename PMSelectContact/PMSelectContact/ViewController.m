@@ -32,6 +32,12 @@
     MCMemberManagerViewCotroller * vc = [[MCMemberManagerViewCotroller alloc] init];
     vc.isFromNoteShare = YES;
     //    vc.noteSigninChosenMemberBlock = memberBlock;
+    
+    vc.requestContactPowerBlock = ^(void(^successBlock)(void)) {
+        if (successBlock) {
+            successBlock();
+        }
+    };
 
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
     nc.modalPresentationStyle = 0;

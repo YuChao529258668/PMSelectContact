@@ -20,12 +20,10 @@
 #import "AddressBookModel.h"
 #import "MCContactObject.h"
 
-//#import "AddressBookManager.h" // todo
 #import "AddressBookLocalHelper.h"
 
 #import "NSString+Extend.h"
 #import "pinyin.h"
-//#import "NetMonitor.h" // todo
 //#import "McloudAlertView.h" // todo
 //#import "MCToastView.h" // todo
 
@@ -90,21 +88,26 @@ MCContactsSearchListViewDelegate>
 }
 //isFirst:yes---表示初次进入控制器，no---用于从后台进入
 -(void)getContactDataIsFirst:(BOOL)isFirst{
-    if (isFirst) {
-//        self.member_tableView.hidden = YES;
-//        [self zh_addLoadingView];
+    // 先判断是否有权限
+    if (self.requestContactPowerBlock) {
+        void (^successBlock) (void) = ^{
+            //1.获取通讯录中乱序的联系人数组 sourceArr
+            NSMutableArray * sourcesArr = [AddressBookLocalHelper getAllSearchPeoplePhoneContactsInfo];
+            self.search_originArr = sourcesArr;
+        };
+        self.requestContactPowerBlock(successBlock);
     }
-//    self.member_tableView.hidden = isFirst?YES:NO;
-//    [self zh_addLoadingView];
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        //1.获取通讯录中乱序的联系人数组 sourceArr
-        NSMutableArray * sourcesArr = [AddressBookLocalHelper getAllSearchPeoplePhoneContactsInfo];
-        self.search_originArr = sourcesArr;
-        dispatch_async(dispatch_get_main_queue(), ^{
-//            [self.reLoadingView hideProgress];
-//            self.member_tableView.hidden = NO;
-        });
-    });
+    
+//
+//    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+//        //1.获取通讯录中乱序的联系人数组 sourceArr
+//        NSMutableArray * sourcesArr = [AddressBookLocalHelper getAllSearchPeoplePhoneContactsInfo];
+//        self.search_originArr = sourcesArr;
+//        dispatch_async(dispatch_get_main_queue(), ^{
+////            [self.reLoadingView hideProgress];
+////            self.member_tableView.hidden = NO;
+//        });
+//    });
 }
 #pragma mark -- 初始化视图
 -(void)initView{
@@ -306,15 +309,16 @@ MCContactsSearchListViewDelegate>
 }
 //跳转到通讯录
 - (IBAction)pushToContactButtonAction:(UIButton *)sender {
-    // todo
     // 先判断是否有权限
-//    if (![AddressBookManager checkAddressBookAccessPermissions]) {
-//        [self
-//         showToast:NSLocalizedString(@"addBookMan_noPermission_toAccess", nil)];
-//        return;
-//    }
-//
-    // 将成员数组传给联系人界面
+    if (self.requestContactPowerBlock) {
+        void (^successBlock) (void) = ^{
+            [self gotoLocalContactVC];
+        };
+        self.requestContactPowerBlock(successBlock);
+    }
+}
+
+- (void)gotoLocalContactVC {
     MCContactsViewController * vc = [[MCContactsViewController alloc] init];
 
     __weak typeof(self) weakSelf = self;
@@ -345,7 +349,6 @@ MCContactsSearchListViewDelegate>
         }
     };
     [self.navigationController pushViewController:vc animated:YES];
-
 }
 
 //返回按钮点击事件
@@ -367,11 +370,6 @@ MCContactsSearchListViewDelegate>
 }
 //保存按钮点击事件
 -(void)rightBarButtonDidClick:(UIButton*)sender{
-    //判断是否有网络
-//    if (![self isNetworkAvailable]) {
-//        [self showToast:NSLocalizedString(@"common_network_connect_ungelivable",nil)];
-//        return;
-//    }
     //判断人数是否超出限制
     if (self.member_dataArr.count > 50) {
         [self showToast:NSLocalizedString(@"sharemgr_ptopshare_count_beyond", nil)];
@@ -737,9 +735,6 @@ MCContactsSearchListViewDelegate>
 - (NSString *)queryContactNameByPhoneNumber:(NSString *)number
 {
     if (number.length > 0){
-//        AddressBookManager * addressBookManager =
-//        [AddressBookManager obtainAddressBookManagerManagement];
-//        NSString * name = [addressBookManager getAddressBookFullNameByPhoneNumber:number];
         NSString * name = [AddressBookLocalHelper getAddressBookFullNameByPhoneNumber:number];
 
         if ([name length] > 0) {

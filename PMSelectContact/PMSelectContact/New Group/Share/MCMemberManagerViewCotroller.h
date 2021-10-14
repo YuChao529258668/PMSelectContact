@@ -35,6 +35,10 @@ typedef void(^ChosenMemberDataBlock)(BOOL isSuccess, NSArray * _Nullable members
 
 @property (nonatomic, assign) BOOL isFriendIn;
 
+
+/// 请求联系人权限，成功后调用 successBlock
+@property (nonatomic, copy) void (^requestContactPowerBlock)(void(^successBlock)(void));
+
 @end
 
 
