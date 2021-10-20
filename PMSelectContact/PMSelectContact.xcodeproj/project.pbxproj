@@ -115,6 +115,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D05D091271FE851001765D8 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				0DCB2FA6271802CC00ABCB7D /* Media.xcassets */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		0D2F3E1E2717C90A00AAA2F2 /* Share */ = {
 			isa = PBXGroup;
 			children = (
@@ -149,7 +157,7 @@
 		0D8D8DC52716C5F700494FC5 /* PMSelectContact */ = {
 			isa = PBXGroup;
 			children = (
-				0D8D8DDF2716C61200494FC5 /* New Group */,
+				0D8D8DDF2716C61200494FC5 /* PMSelectContact */,
 				0D8D8DC62716C5F700494FC5 /* AppDelegate.h */,
 				0D8D8DC72716C5F700494FC5 /* AppDelegate.m */,
 				0D8D8DC92716C5F700494FC5 /* SceneDelegate.h */,
@@ -165,7 +173,7 @@
 			path = PMSelectContact;
 			sourceTree = "<group>";
 		};
-		0D8D8DDF2716C61200494FC5 /* New Group */ = {
+		0D8D8DDF2716C61200494FC5 /* PMSelectContact */ = {
 			isa = PBXGroup;
 			children = (
 				0DCB2F9D2717DDC800ABCB7D /* DataSource */,
@@ -174,9 +182,9 @@
 				0D8D8DEA2716C6E300494FC5 /* VC */,
 				0D8D8DEB2716C7B200494FC5 /* AddressBook */,
 				0D8D8DE32716C69400494FC5 /* Contacts */,
-				0DCB2FA6271802CC00ABCB7D /* Media.xcassets */,
+				0D05D091271FE851001765D8 /* Resource */,
 			);
-			path = "New Group";
+			path = PMSelectContact;
 			sourceTree = "<group>";
 		};
 		0D8D8DE32716C69400494FC5 /* Contacts */ = {
@@ -510,7 +518,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = yc.yc..PMSelectContact;
+				PRODUCT_BUNDLE_IDENTIFIER = com.eningqu.AiPen.yc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -538,7 +546,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = yc.yc..PMSelectContact;
+				PRODUCT_BUNDLE_IDENTIFIER = com.eningqu.AiPen.yc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
