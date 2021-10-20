@@ -13,6 +13,7 @@
 		0D2F3E2A2717C90A00AAA2F2 /* MCMemberTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D2F3E232717C90A00AAA2F2 /* MCMemberTableViewCell.xib */; };
 		0D2F3E2B2717C90A00AAA2F2 /* MCMemberManagerViewCotroller.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D2F3E252717C90A00AAA2F2 /* MCMemberManagerViewCotroller.xib */; };
 		0D5D9BE6271FF2CC00B3A7DA /* PMSCToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5D9BE4271FF2CC00B3A7DA /* PMSCToastView.m */; };
+		0D5D9BE9271FFAF300B3A7DA /* MCSCLoadingProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5D9BE7271FFAF300B3A7DA /* MCSCLoadingProgressView.m */; };
 		0D8D8DC82716C5F700494FC5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D8DC72716C5F700494FC5 /* AppDelegate.m */; };
 		0D8D8DCB2716C5F700494FC5 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D8DCA2716C5F700494FC5 /* SceneDelegate.m */; };
 		0D8D8DCE2716C5F700494FC5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D8DCD2716C5F700494FC5 /* ViewController.m */; };
@@ -52,6 +53,8 @@
 		0D2F3E262717C90A00AAA2F2 /* MCMemberManagerViewCotroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCMemberManagerViewCotroller.h; sourceTree = "<group>"; };
 		0D5D9BE4271FF2CC00B3A7DA /* PMSCToastView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMSCToastView.m; sourceTree = "<group>"; };
 		0D5D9BE5271FF2CC00B3A7DA /* PMSCToastView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMSCToastView.h; sourceTree = "<group>"; };
+		0D5D9BE7271FFAF300B3A7DA /* MCSCLoadingProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCSCLoadingProgressView.m; sourceTree = "<group>"; };
+		0D5D9BE8271FFAF300B3A7DA /* MCSCLoadingProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCSCLoadingProgressView.h; sourceTree = "<group>"; };
 		0D8D8DC32716C5F700494FC5 /* PMSelectContact.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PMSelectContact.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D8D8DC62716C5F700494FC5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0D8D8DC72716C5F700494FC5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -241,6 +244,8 @@
 				0D8D8E1D2716CDC200494FC5 /* POAHead.h */,
 				0D8D8E052716C8EA00494FC5 /* MCSCAlertView.h */,
 				0D8D8E062716C8EA00494FC5 /* MCSCAlertView.m */,
+				0D5D9BE8271FFAF300B3A7DA /* MCSCLoadingProgressView.h */,
+				0D5D9BE7271FFAF300B3A7DA /* MCSCLoadingProgressView.m */,
 				0D5D9BE5271FF2CC00B3A7DA /* PMSCToastView.h */,
 				0D5D9BE4271FF2CC00B3A7DA /* PMSCToastView.m */,
 				0D8D8DFF2716C85F00494FC5 /* NSString+SCExtend.h */,
@@ -337,6 +342,7 @@
 				0D8D8DE22716C61B00494FC5 /* MCContactsViewController.m in Sources */,
 				0D8D8DC82716C5F700494FC5 /* AppDelegate.m in Sources */,
 				0D8D8E1C2716CDA600494FC5 /* POAPinyin.m in Sources */,
+				0D5D9BE9271FFAF300B3A7DA /* MCSCLoadingProgressView.m in Sources */,
 				0D8D8E152716CB3000494FC5 /* MCContactsSearchListView.m in Sources */,
 				0D8D8DF92716C7B200494FC5 /* SearchContactModel.m in Sources */,
 				0D8D8E042716C88700494FC5 /* BasicModel.m in Sources */,

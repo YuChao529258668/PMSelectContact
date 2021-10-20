@@ -22,6 +22,7 @@
 
 #import "MultiSelectTableViewCell.h"
 #import "MCContactsSearchListView.h"
+#import "MCSCLoadingProgressView.h"
 
 
 //#import "MCSearchCoreManager.h"
@@ -281,8 +282,8 @@ MCAlertViewDelegate
 //获取本地通讯录
 - (void)fetchLocalContacts {
     if (_isShowLoadingView) {
-        // todo
 //        [self.loadingView showProgressWithTitle:NSLocalizedString(@"加载中...", nil) inView:self.view];
+        [MCSCLoadingProgressView showClearLoadingInView:self.view];
     }
 
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
@@ -338,6 +339,7 @@ MCAlertViewDelegate
         dispatch_async(dispatch_get_main_queue(), ^{
             if (_isShowLoadingView) {
 //                [self.loadingView hideProgress];
+                [MCSCLoadingProgressView dismissLoadingInView:self.view];
             }else {
                 self.isShowLoadingView = YES;
             }
