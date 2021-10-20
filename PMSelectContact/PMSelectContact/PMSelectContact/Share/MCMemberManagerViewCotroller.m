@@ -10,7 +10,7 @@
 #import "MCContactsViewController.h"
 
 #import "MCMemberTableViewCell.h"
-#import "MCAlertView.h"
+#import "PMMCAlertView.h"
 #import "MCContactsSearchListView.h"
 //#import "YBProgressShow.h" // todo
 
@@ -236,7 +236,7 @@ MCContactsSearchListViewDelegate>
     } else {
         nameString = [NSString stringWithFormat:@"确定将“%@”移出收件人名单", model.telNumber];
     }
-    MCAlertView * alertView = [MCAlertView popAlertViewWithTitle:@"" message:nameString leftButtonTitle:@"取消" rightButtonTitle:@"删除"];
+    PMMCAlertView * alertView = [PMMCAlertView popAlertViewWithTitle:@"" message:nameString leftButtonTitle:@"取消" rightButtonTitle:@"删除"];
     alertView.leftButtonTitleColor = gMCColorWithHex(0x999999, 1.0);
     alertView.rightButtonTitleColor = [UIColor redColor];
     alertView.delegate = self;
@@ -245,7 +245,7 @@ MCContactsSearchListViewDelegate>
     [[UIApplication sharedApplication].keyWindow addSubview:alertView];
 }
 #pragma mark -- MCAlertViewDelegate
--(void)alertView:(MCAlertView *)view didClickAtIndex:(NSInteger)index{
+-(void)alertView:(PMMCAlertView *)view didClickAtIndex:(NSInteger)index{
     switch (index) {
         case 0://取消
             
@@ -377,7 +377,7 @@ MCContactsSearchListViewDelegate>
     self.isDataChange = self.deletedMemberArr.count > 0||self.addMemberArr.count > 0;
     //有变更弹出确认弹框
     if (self.isDataChange) {
-        MCAlertView * alertView = [MCAlertView popAlertViewWithTitle:@"" message:self.isFriendIn ? @"放弃此次好友分享的编辑？" : @"放弃此次共享人员的编辑？" leftButtonTitle:@"取消" rightButtonTitle:@"确认"];
+        PMMCAlertView * alertView = [PMMCAlertView popAlertViewWithTitle:@"" message:self.isFriendIn ? @"放弃此次好友分享的编辑？" : @"放弃此次共享人员的编辑？" leftButtonTitle:@"取消" rightButtonTitle:@"确认"];
         alertView.leftButtonTitleColor = gMCColorWithHex(0x999999, 1.0);
         alertView.rightButtonTitleColor = [UIColor redColor];
         alertView.tag = 851;

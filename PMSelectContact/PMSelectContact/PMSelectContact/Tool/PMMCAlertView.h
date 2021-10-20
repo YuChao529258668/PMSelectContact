@@ -1,5 +1,5 @@
 //
-//  MCAlertView.h
+//  PMMCAlertView.h
 //  mCloud_iPhone
 //
 //  Created by 潘天乡 on 05/01/2018.
@@ -18,7 +18,7 @@ typedef void (^ MCAlertView_Block_Void)(void);
 
 @protocol MCAlertViewDelegate;
 
-@interface MCAlertView : UIView
+@interface PMMCAlertView : UIView
 
 @property (nonatomic, weak) id<MCAlertViewDelegate> delegate;
 
@@ -106,10 +106,10 @@ typedef void (^ MCAlertView_Block_Void)(void);
                       leftButtonTitle:(NSString *)leftButtonTitle
                      rightButtonTitle:(NSString *)rightButtonTitle;
 
-+ (instancetype)popInputAlertViewWithTitle:(NSString *)title
-                                 inputText:(NSString *)inputText
-                           leftButtonTitle:(NSString *)leftButtonTitle
-                          rightButtonTitle:(NSString *)rightButtonTitle;
+//+ (instancetype)popInputAlertViewWithTitle:(NSString *)title
+//                                 inputText:(NSString *)inputText
+//                           leftButtonTitle:(NSString *)leftButtonTitle
+//                          rightButtonTitle:(NSString *)rightButtonTitle;
 
 /// 弹窗
 -(void)popAlertView;
@@ -123,13 +123,13 @@ typedef void (^ MCAlertView_Block_Void)(void);
 /**
  * index从左往右代表按钮的位置：0,1
  */
-- (void)alertView:(MCAlertView *)view didClickAtIndex:(NSInteger)index;
+- (void)alertView:(PMMCAlertView *)view didClickAtIndex:(NSInteger)index;
 
 - (void)textViewOverMaxInputLength;
 
 @end
 
-@interface MCAlertView (MCloudAddition)
+@interface PMMCAlertView (MCloudAddition)
 
 + (instancetype)popAlertViewWithTitle:(NSString *)title
                               message:(NSString *)message
@@ -150,7 +150,7 @@ typedef void (^ MCAlertView_Block_Void)(void);
 
 @end
 
-@interface MCAlertView (OutLink)
+@interface PMMCAlertView (OutLink)
 
 @property (nonatomic, copy) NSString *outLinkID; //外链ID
 @property (nonatomic, copy) NSString *extractionCode; //外链提取码
@@ -168,7 +168,7 @@ typedef void (^ MCAlertView_Block_Void)(void);
 
 @end
 
-@interface MCAlertView (MarketPassword)
+@interface PMMCAlertView (MarketPassword)
 
 @property (nonatomic, copy) NSString *marketPassword; //营销口令
 
