@@ -37,7 +37,7 @@
 		0D8D8E182716CB4500494FC5 /* MCContactsSearchListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D8E162716CB4500494FC5 /* MCContactsSearchListViewCell.m */; };
 		0D8D8E1C2716CDA600494FC5 /* POAPinyin.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D8E1A2716CDA600494FC5 /* POAPinyin.m */; };
 		0DCB2FA02717DDE500ABCB7D /* AddressBookLocalHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB2F9E2717DDE500ABCB7D /* AddressBookLocalHelper.m */; };
-		0DCB2FA22717E03500ABCB7D /* pinyin.c in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB2FA12717E03500ABCB7D /* pinyin.c */; };
+		0DCB2FA22717E03500ABCB7D /* pinyin.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB2FA12717E03500ABCB7D /* pinyin.m */; };
 		0DCB2FA7271802CC00ABCB7D /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0DCB2FA6271802CC00ABCB7D /* Media.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -101,7 +101,7 @@
 		0D8D8E1D2716CDC200494FC5 /* POAHead.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = POAHead.h; sourceTree = "<group>"; };
 		0DCB2F9E2717DDE500ABCB7D /* AddressBookLocalHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressBookLocalHelper.m; sourceTree = "<group>"; };
 		0DCB2F9F2717DDE500ABCB7D /* AddressBookLocalHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBookLocalHelper.h; sourceTree = "<group>"; };
-		0DCB2FA12717E03500ABCB7D /* pinyin.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pinyin.c; sourceTree = "<group>"; };
+		0DCB2FA12717E03500ABCB7D /* pinyin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pinyin.m; sourceTree = "<group>"; };
 		0DCB2FA6271802CC00ABCB7D /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -238,7 +238,7 @@
 			isa = PBXGroup;
 			children = (
 				0D8D8E0A2716CA7200494FC5 /* pinyin.h */,
-				0DCB2FA12717E03500ABCB7D /* pinyin.c */,
+				0DCB2FA12717E03500ABCB7D /* pinyin.m */,
 				0D8D8E1B2716CDA600494FC5 /* POAPinyin.h */,
 				0D8D8E1A2716CDA600494FC5 /* POAPinyin.m */,
 				0D8D8E1D2716CDC200494FC5 /* POAHead.h */,
@@ -357,7 +357,7 @@
 				0D2F3E292717C90A00AAA2F2 /* MCMemberManagerViewCotroller.m in Sources */,
 				0D8D8E182716CB4500494FC5 /* MCContactsSearchListViewCell.m in Sources */,
 				0D8D8E072716C8EA00494FC5 /* MCSCAlertView.m in Sources */,
-				0DCB2FA22717E03500ABCB7D /* pinyin.c in Sources */,
+				0DCB2FA22717E03500ABCB7D /* pinyin.m in Sources */,
 				0D8D8E012716C85F00494FC5 /* NSString+SCExtend.m in Sources */,
 				0D8D8DFA2716C7B200494FC5 /* AddressBookModel.m in Sources */,
 				0D8D8DFC2716C7B200494FC5 /* LocalAddressBookModel.m in Sources */,
