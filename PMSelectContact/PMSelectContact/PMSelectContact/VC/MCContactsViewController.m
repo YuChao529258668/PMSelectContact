@@ -9,7 +9,7 @@
 #import "MCContactsViewController.h"
 
 //#import "LoadingProgressView.h"
-#import "PMMCAlertView.h"
+#import "MCSCAlertView.h"
 //#import "MCToastView.h"
 
 #import "NSString+SCExtend.h"
@@ -438,7 +438,7 @@ MCAlertViewDelegate
 #pragma mark - Event Handler
 - (void)leftButtonAction {
     if (self.selectedDatas.count > 0) {
-        PMMCAlertView *alertView = [PMMCAlertView popAlertViewWithTitle:nil message:NSLocalizedString(@"退出此次选择？", nil) leftButtonTitle:NSLocalizedString(@"取消", nil) rightButtonTitle:NSLocalizedString(@"确定", nil)];
+        MCSCAlertView *alertView = [MCSCAlertView popAlertViewWithTitle:nil message:NSLocalizedString(@"退出此次选择？", nil) leftButtonTitle:NSLocalizedString(@"取消", nil) rightButtonTitle:NSLocalizedString(@"确定", nil)];
         alertView.delegate = self;
     }else {
         [self.navigationController popViewControllerAnimated:YES];
@@ -758,7 +758,7 @@ MCAlertViewDelegate
 }
 
 #pragma mark - MCAlertViewDelegate
-- (void)alertView:(PMMCAlertView *)view didClickAtIndex:(NSInteger)index {
+- (void)alertView:(MCSCAlertView *)view didClickAtIndex:(NSInteger)index {
     if (index == 1) {
         [self.navigationController popViewControllerAnimated:YES];
     }

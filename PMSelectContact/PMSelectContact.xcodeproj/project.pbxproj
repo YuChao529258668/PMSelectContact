@@ -30,7 +30,7 @@
 		0D8D8DFC2716C7B200494FC5 /* LocalAddressBookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D8DF42716C7B200494FC5 /* LocalAddressBookModel.m */; };
 		0D8D8E012716C85F00494FC5 /* NSString+SCExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D8E002716C85F00494FC5 /* NSString+SCExtend.m */; };
 		0D8D8E042716C88700494FC5 /* BasicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D8E032716C88700494FC5 /* BasicModel.m */; };
-		0D8D8E072716C8EA00494FC5 /* PMMCAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D8E062716C8EA00494FC5 /* PMMCAlertView.m */; };
+		0D8D8E072716C8EA00494FC5 /* MCSCAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D8E062716C8EA00494FC5 /* MCSCAlertView.m */; };
 		0D8D8E122716CB0A00494FC5 /* MultiSelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D8E102716CB0A00494FC5 /* MultiSelectTableViewCell.m */; };
 		0D8D8E152716CB3000494FC5 /* MCContactsSearchListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D8E142716CB3000494FC5 /* MCContactsSearchListView.m */; };
 		0D8D8E182716CB4500494FC5 /* MCContactsSearchListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D8E162716CB4500494FC5 /* MCContactsSearchListViewCell.m */; };
@@ -84,8 +84,8 @@
 		0D8D8E002716C85F00494FC5 /* NSString+SCExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SCExtend.m"; sourceTree = "<group>"; };
 		0D8D8E022716C88700494FC5 /* BasicModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicModel.h; sourceTree = "<group>"; };
 		0D8D8E032716C88700494FC5 /* BasicModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasicModel.m; sourceTree = "<group>"; };
-		0D8D8E052716C8EA00494FC5 /* PMMCAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMMCAlertView.h; sourceTree = "<group>"; };
-		0D8D8E062716C8EA00494FC5 /* PMMCAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMMCAlertView.m; sourceTree = "<group>"; };
+		0D8D8E052716C8EA00494FC5 /* MCSCAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCSCAlertView.h; sourceTree = "<group>"; };
+		0D8D8E062716C8EA00494FC5 /* MCSCAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCSCAlertView.m; sourceTree = "<group>"; };
 		0D8D8E0A2716CA7200494FC5 /* pinyin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pinyin.h; sourceTree = "<group>"; };
 		0D8D8E102716CB0A00494FC5 /* MultiSelectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiSelectTableViewCell.m; sourceTree = "<group>"; };
 		0D8D8E112716CB0A00494FC5 /* MultiSelectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiSelectTableViewCell.h; sourceTree = "<group>"; };
@@ -239,8 +239,8 @@
 				0D8D8E1B2716CDA600494FC5 /* POAPinyin.h */,
 				0D8D8E1A2716CDA600494FC5 /* POAPinyin.m */,
 				0D8D8E1D2716CDC200494FC5 /* POAHead.h */,
-				0D8D8E052716C8EA00494FC5 /* PMMCAlertView.h */,
-				0D8D8E062716C8EA00494FC5 /* PMMCAlertView.m */,
+				0D8D8E052716C8EA00494FC5 /* MCSCAlertView.h */,
+				0D8D8E062716C8EA00494FC5 /* MCSCAlertView.m */,
 				0D5D9BE5271FF2CC00B3A7DA /* PMSCToastView.h */,
 				0D5D9BE4271FF2CC00B3A7DA /* PMSCToastView.m */,
 				0D8D8DFF2716C85F00494FC5 /* NSString+SCExtend.h */,
@@ -350,7 +350,7 @@
 				0D8D8DE92716C69500494FC5 /* MCContactObject.m in Sources */,
 				0D2F3E292717C90A00AAA2F2 /* MCMemberManagerViewCotroller.m in Sources */,
 				0D8D8E182716CB4500494FC5 /* MCContactsSearchListViewCell.m in Sources */,
-				0D8D8E072716C8EA00494FC5 /* PMMCAlertView.m in Sources */,
+				0D8D8E072716C8EA00494FC5 /* MCSCAlertView.m in Sources */,
 				0DCB2FA22717E03500ABCB7D /* pinyin.c in Sources */,
 				0D8D8E012716C85F00494FC5 /* NSString+SCExtend.m in Sources */,
 				0D8D8DFA2716C7B200494FC5 /* AddressBookModel.m in Sources */,

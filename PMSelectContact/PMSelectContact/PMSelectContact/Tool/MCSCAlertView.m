@@ -1,12 +1,12 @@
 //
-//  PMMCAlertView.m
+//  MCSCAlertView.m
 //  mCloud_iPhone
 //
 //  Created by 潘天乡 on 05/01/2018.
 //  Copyright © 2018 epro. All rights reserved.
 //
 
-#import "PMMCAlertView.h"
+#import "MCSCAlertView.h"
 #import <objc/runtime.h>
 
 NSString *MCAlertViewDidShowNotification = @"MCAlertViewDidShowNotification";
@@ -21,7 +21,7 @@ NSString *MCAlertViewDidHideNotification = @"MCAlertViewDidHideNotification";
 static const CGFloat contentViewWidth = 311.0;
 static const CGFloat buttonHeight = 48.0; //按钮高度
 
-@interface PMMCAlertView () <UITextViewDelegate>
+@interface MCSCAlertView () <UITextViewDelegate>
 
 /// Tap dimiss gesture
 @property (nonatomic, strong) UITapGestureRecognizer *tapToDismissGesture;
@@ -29,14 +29,14 @@ static const CGFloat buttonHeight = 48.0; //按钮高度
 
 @end
 
-@implementation PMMCAlertView
+@implementation MCSCAlertView
 
 + (instancetype)popAlertViewWithTitle:(NSString *)title
                               message:(NSString *)message
                               contentView:(UIView *)customContent
                       leftButtonTitle:(NSString *)leftButtonTitle
                      rightButtonTitle:(NSString *)rightButtonTitle {
-    PMMCAlertView *view = [[PMMCAlertView alloc] initWithTitle:title
+    MCSCAlertView *view = [[MCSCAlertView alloc] initWithTitle:title
                                                    message:message
                                                contentView:customContent
                                            leftButtonTitle:leftButtonTitle
@@ -48,7 +48,7 @@ static const CGFloat buttonHeight = 48.0; //按钮高度
                               message:(NSString *)message
                       leftButtonTitle:(NSString *)leftButtonTitle
                      rightButtonTitle:(NSString *)rightButtonTitle {
-    PMMCAlertView *view = [[PMMCAlertView alloc] initWithTitle:title
+    MCSCAlertView *view = [[MCSCAlertView alloc] initWithTitle:title
                                                    message:message
                                            leftButtonTitle:leftButtonTitle
                                           rightButtonTitle:rightButtonTitle];
@@ -60,7 +60,7 @@ static const CGFloat buttonHeight = 48.0; //按钮高度
                      rightButtonTitle:(NSString *)rightButtonTitle
                           isHaveClose:(BOOL)isHaveClose
 {
-    PMMCAlertView *view = [[PMMCAlertView alloc] initWithTitle:title
+    MCSCAlertView *view = [[MCSCAlertView alloc] initWithTitle:title
                                                    message:message
                                            leftButtonTitle:leftButtonTitle
                                           rightButtonTitle:rightButtonTitle
@@ -74,7 +74,7 @@ static const CGFloat buttonHeight = 48.0; //按钮高度
                           isHaveClose:(BOOL)isHaveClose
                           isMaxHeight:(BOOL)isMaxHeight
 {
-    PMMCAlertView *view = [[PMMCAlertView alloc] initWithTitle:title
+    MCSCAlertView *view = [[MCSCAlertView alloc] initWithTitle:title
                                                    message:message
                                            leftButtonTitle:leftButtonTitle
                                           rightButtonTitle:rightButtonTitle
@@ -87,7 +87,7 @@ static const CGFloat buttonHeight = 48.0; //按钮高度
                           leftButtonTitle:(NSString *)leftButtonTitle
                          rightButtonTitle:(NSString *)rightButtonTitle
                                 isPopView:(BOOL)isPopView{
-    PMMCAlertView *view = [[PMMCAlertView alloc] initWithTitle:title
+    MCSCAlertView *view = [[MCSCAlertView alloc] initWithTitle:title
                                                    message:message
                                            leftButtonTitle:leftButtonTitle
                                           rightButtonTitle:rightButtonTitle
@@ -96,7 +96,7 @@ static const CGFloat buttonHeight = 48.0; //按钮高度
 }
 
 //+ (instancetype)popInputAlertViewWithTitle:(NSString *)title inputText:(NSString *)inputText leftButtonTitle:(NSString *)leftButtonTitle rightButtonTitle:(NSString *)rightButtonTitle {
-//    PMMCAlertView *view = [[PMMCAlertView alloc] initWithInputTitle:title inputText:inputText leftButtonTitle:leftButtonTitle rightButtonTitle:rightButtonTitle];
+//    MCSCAlertView *view = [[MCSCAlertView alloc] initWithInputTitle:title inputText:inputText leftButtonTitle:leftButtonTitle rightButtonTitle:rightButtonTitle];
 //    return view;
 //}
 
@@ -861,10 +861,10 @@ static const CGFloat buttonHeight = 48.0; //按钮高度
 
 @end
 
-@implementation PMMCAlertView (MCloudAddition)
+@implementation MCSCAlertView (MCloudAddition)
 
 + (instancetype)popAlertViewWithTitle:(NSString *)title message:(NSString *)message detailMessage:(NSString *)detailMessage leftButtonTitle:(NSString *)leftButtonTitle rightButtonTitle:(NSString *)rightButtonTitle {
-    PMMCAlertView *view = [[PMMCAlertView alloc] initWithTitle:title
+    MCSCAlertView *view = [[MCSCAlertView alloc] initWithTitle:title
                                                    message:message
                                            leftButtonTitle:leftButtonTitle
                                           rightButtonTitle:rightButtonTitle];
@@ -903,7 +903,7 @@ static const CGFloat buttonHeight = 48.0; //按钮高度
     if (sameAccout) {
         NSString *title = @"查看我的文件（来自小程序）";
         NSString *message = [NSString stringWithFormat:@"路径：%@",[dict objectForKey:@"fullpath"]];
-        PMMCAlertView *view = [[PMMCAlertView alloc] initWithTitle:title
+        MCSCAlertView *view = [[MCSCAlertView alloc] initWithTitle:title
                                                        message:message
                                                leftButtonTitle:nil
                                               rightButtonTitle:nil];
@@ -955,7 +955,7 @@ static const CGFloat buttonHeight = 48.0; //按钮高度
         
         return view;
     }else {
-        PMMCAlertView *view = [PMMCAlertView popAlertViewWithTitle:@"温馨提示" message:@"当前账号与小程序端账号不一致，无法查看来自小程序的文件" leftButtonTitle:@"取消" rightButtonTitle:@"切换账号"];
+        MCSCAlertView *view = [MCSCAlertView popAlertViewWithTitle:@"温馨提示" message:@"当前账号与小程序端账号不一致，无法查看来自小程序的文件" leftButtonTitle:@"取消" rightButtonTitle:@"切换账号"];
          return view;
     }
 }
@@ -966,8 +966,8 @@ static const CGFloat buttonHeight = 48.0; //按钮高度
     // 假设keyWindow不变（若项目存在其他window需修改）
     NSArray *views = [UIApplication sharedApplication].keyWindow.subviews;
     for (UIView *element in views) {
-        if ([element isKindOfClass:[PMMCAlertView class]]) {
-            PMMCAlertView *existentAlertView = (PMMCAlertView *)element;
+        if ([element isKindOfClass:[MCSCAlertView class]]) {
+            MCSCAlertView *existentAlertView = (MCSCAlertView *)element;
             if ([identifiers containsObject:existentAlertView.identifier]) {
                 existed = YES;
                 break;
@@ -1000,13 +1000,13 @@ static const CGFloat buttonHeight = 48.0; //按钮高度
 
 @end
 
-@implementation PMMCAlertView (OutLink)
+@implementation MCSCAlertView (OutLink)
 
 + (instancetype)popAlertViewWithIcon:(UIImage *)icon
                                title:(NSString *)title
                              message:(NSString *)message
                          buttonTitle:(NSString *)buttonTitle {
-    PMMCAlertView *view = [[PMMCAlertView alloc] initWithTitle:title
+    MCSCAlertView *view = [[MCSCAlertView alloc] initWithTitle:title
                                                    message:message
                                            leftButtonTitle:nil
                                           rightButtonTitle:nil];
@@ -1064,7 +1064,7 @@ static const CGFloat buttonHeight = 48.0; //按钮高度
                      leftButtonTitle:(NSString *)leftButtonTitle
                     rightButtonTitle:(NSString *)rightButtonTitle
                             delegate:(id<MCAlertViewDelegate>)delegate {
-    PMMCAlertView *view = [[PMMCAlertView alloc] initWithTitle:title
+    MCSCAlertView *view = [[MCSCAlertView alloc] initWithTitle:title
                                                    message:@""
                                            leftButtonTitle:leftButtonTitle
                                           rightButtonTitle:rightButtonTitle];
@@ -1113,13 +1113,13 @@ static const CGFloat buttonHeight = 48.0; //按钮高度
 }
 
 @end
-@implementation PMMCAlertView (MarketPassword)
+@implementation MCSCAlertView (MarketPassword)
 
 + (instancetype)popMarketAlertViewWithIcon:(UIImage *)icon
                                      title:(NSString *)title
                                    message:(NSString *)message
                                buttonTitle:(NSString *)buttonTitle {
-    PMMCAlertView *view = [[PMMCAlertView alloc] initWithTitle:title
+    MCSCAlertView *view = [[MCSCAlertView alloc] initWithTitle:title
                                                    message:message
                                            leftButtonTitle:nil
                                           rightButtonTitle:nil];
@@ -1178,7 +1178,7 @@ static const CGFloat buttonHeight = 48.0; //按钮高度
                            leftButtonTitle:(NSString *)leftButtonTitle
                           rightButtonTitle:(NSString *)rightButtonTitle
                                   delegate:(id<MCAlertViewDelegate>)delegate {
-    PMMCAlertView *view = [[PMMCAlertView alloc] initWithTitle:title
+    MCSCAlertView *view = [[MCSCAlertView alloc] initWithTitle:title
                                                    message:@""
                                            leftButtonTitle:leftButtonTitle
                                           rightButtonTitle:rightButtonTitle];

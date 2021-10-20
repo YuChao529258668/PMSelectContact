@@ -1,5 +1,5 @@
 //
-//  PMMCAlertView.h
+//  MCSCAlertView.h
 //  mCloud_iPhone
 //
 //  Created by 潘天乡 on 05/01/2018.
@@ -18,7 +18,7 @@ typedef void (^ MCAlertView_Block_Void)(void);
 
 @protocol MCAlertViewDelegate;
 
-@interface PMMCAlertView : UIView
+@interface MCSCAlertView : UIView
 
 @property (nonatomic, weak) id<MCAlertViewDelegate> delegate;
 
@@ -123,13 +123,13 @@ typedef void (^ MCAlertView_Block_Void)(void);
 /**
  * index从左往右代表按钮的位置：0,1
  */
-- (void)alertView:(PMMCAlertView *)view didClickAtIndex:(NSInteger)index;
+- (void)alertView:(MCSCAlertView *)view didClickAtIndex:(NSInteger)index;
 
 - (void)textViewOverMaxInputLength;
 
 @end
 
-@interface PMMCAlertView (MCloudAddition)
+@interface MCSCAlertView (MCloudAddition)
 
 + (instancetype)popAlertViewWithTitle:(NSString *)title
                               message:(NSString *)message
@@ -150,7 +150,7 @@ typedef void (^ MCAlertView_Block_Void)(void);
 
 @end
 
-@interface PMMCAlertView (OutLink)
+@interface MCSCAlertView (OutLink)
 
 @property (nonatomic, copy) NSString *outLinkID; //外链ID
 @property (nonatomic, copy) NSString *extractionCode; //外链提取码
@@ -168,7 +168,7 @@ typedef void (^ MCAlertView_Block_Void)(void);
 
 @end
 
-@interface PMMCAlertView (MarketPassword)
+@interface MCSCAlertView (MarketPassword)
 
 @property (nonatomic, copy) NSString *marketPassword; //营销口令
 
