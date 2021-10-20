@@ -9,8 +9,8 @@
 #import "MCSCAlertView.h"
 #import <objc/runtime.h>
 
-NSString *MCAlertViewDidShowNotification = @"MCAlertViewDidShowNotification";
-NSString *MCAlertViewDidHideNotification = @"MCAlertViewDidHideNotification";
+NSString *MCSCAlertViewDidShowNotification = @"MCSCAlertViewDidShowNotification";
+NSString *MCSCAlertViewDidHideNotification = @"MCSCAlertViewDidHideNotification";
 
 #define MCA_ScreenWidth [UIScreen mainScreen].bounds.size.width
 #define MCA_ScreenHeight [UIScreen mainScreen].bounds.size.height
@@ -181,7 +181,7 @@ static const CGFloat buttonHeight = 48.0; //按钮高度
         if (buttonsView) {
             [contentView addSubview:buttonsView];
         }
-        [[NSNotificationCenter defaultCenter] postNotificationName:MCAlertViewDidShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:MCSCAlertViewDidShowNotification object:nil];
     }
     return self;
 }
@@ -280,7 +280,7 @@ static const CGFloat buttonHeight = 48.0; //按钮高度
         if (buttonsView) {
             [contentView addSubview:buttonsView];
         }
-        [[NSNotificationCenter defaultCenter] postNotificationName:MCAlertViewDidShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:MCSCAlertViewDidShowNotification object:nil];
     }
     return self;
 }
@@ -373,7 +373,7 @@ static const CGFloat buttonHeight = 48.0; //按钮高度
         if (buttonsView) {
             [contentView addSubview:buttonsView];
         }
-        [[NSNotificationCenter defaultCenter] postNotificationName:MCAlertViewDidShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:MCSCAlertViewDidShowNotification object:nil];
     }
     return self;
 }
@@ -461,7 +461,7 @@ static const CGFloat buttonHeight = 48.0; //按钮高度
         }
         if(isPopView){
             self.isPopView = YES;
-            [[NSNotificationCenter defaultCenter] postNotificationName:MCAlertViewDidShowNotification object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:MCSCAlertViewDidShowNotification object:nil];
         }
     }
     return self;
@@ -560,7 +560,7 @@ static const CGFloat buttonHeight = 48.0; //按钮高度
             [contentView addSubview:customContent];
         }
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:MCAlertViewDidShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:MCSCAlertViewDidShowNotification object:nil];
     }
     return self;
 }
@@ -617,7 +617,7 @@ static const CGFloat buttonHeight = 48.0; //按钮高度
 //        if (buttonsView) {
 //            [contentView addSubview:buttonsView];
 //        }
-//        [[NSNotificationCenter defaultCenter] postNotificationName:MCAlertViewDidShowNotification object:nil];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:MCSCAlertViewDidShowNotification object:nil];
 //    }
 //    return self;
 //}
@@ -681,14 +681,14 @@ static const CGFloat buttonHeight = 48.0; //按钮高度
     [self dismiss];
 }
 - (void)dismiss {
-    [[NSNotificationCenter defaultCenter] postNotificationName:MCAlertViewDidHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:MCSCAlertViewDidHideNotification object:nil];
     self.isPopView = NO;
     [self removeFromSuperview];
 }
 
 -(void)popAlertView{
     self.isPopView = YES;
-    [[NSNotificationCenter defaultCenter] postNotificationName:MCAlertViewDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:MCSCAlertViewDidShowNotification object:nil];
 }
 
 #pragma mark - Public

@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 //#import "MCPlaceholderTextView.h"
 
-extern NSString *MCAlertViewDidShowNotification;
-extern NSString *MCAlertViewDidHideNotification;
+extern NSString *MCSCAlertViewDidShowNotification;
+extern NSString *MCSCAlertViewDidHideNotification;
 
 
 
