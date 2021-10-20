@@ -21,7 +21,7 @@
 
 #import "AddressBookLocalHelper.h"
 
-#import "NSString+Extend.h"
+#import "NSString+SCExtend.h"
 #import "pinyin.h"
 
 @interface MCMemberManagerViewCotroller ()
@@ -476,7 +476,7 @@ MCContactsSearchListViewDelegate>
 -(NSString*)get11PhoneNumber:(NSString *)phoneNo
 {
     //@系统号码去掉86
-    NSString *telNo = [phoneNo telephoneWithReformat];
+    NSString *telNo = [phoneNo sc_telephoneWithReformat];
     if ([telNo hasPrefix:@"86"])
     {
         telNo = [telNo substringWithRange:NSMakeRange(2, [telNo length]-2)];
@@ -520,8 +520,8 @@ MCContactsSearchListViewDelegate>
             for (SearchContactModel *curSearchModel in arr) {
                 if (isAllNumbers) {
                     //一.如果是纯数字则匹配手机号和名字
-                    if ([curSearchModel.phoneNum containsString:searchText] ||
-                        [curSearchModel.compositeName containsString:searchText]) {
+                    if ([curSearchModel.phoneNum sc_containsString:searchText] ||
+                        [curSearchModel.compositeName sc_containsString:searchText]) {
                         MCContactObject *contact = [[MCContactObject alloc] init];
                         contact.name = [self getHightLightStringWithOriginal:curSearchModel.compositeName matchString:searchText normalColor:[UIColor blackColor] heightLightColor:gMCColorWithHex(0xff725b, 1.0)];
                         contact.phoneNum = [self  getHightLightStringWithOriginal:curSearchModel.phoneNum matchString:searchText normalColor:gMCColorWithHex(0x000000, 1.0) heightLightColor:gMCColorWithHex(0xff725b, 1.0)];
@@ -535,15 +535,15 @@ MCContactsSearchListViewDelegate>
                     //二.如果不是纯数字则只匹配名字
                     BOOL isMatch = NO;
                     if ([[curSearchModel.compositeName uppercaseString]
-                         containsString:[searchText uppercaseString]]) {
+                         sc_containsString:[searchText uppercaseString]]) {
                         //1.名字匹配
                         isMatch = YES;
-                    }else if ([model.firstLetterString containsString:[searchText uppercaseString]]) {
+                    }else if ([model.firstLetterString sc_containsString:[searchText uppercaseString]]) {
                         //2.拼音首字母匹配
                         isMatch = YES;
                     }else {
                         NSString *pinyin = [model.pinYinName stringByReplacingOccurrencesOfString:@" " withString:@""];
-                        if ([[pinyin uppercaseString] containsString:[searchText uppercaseString]]){
+                        if ([[pinyin uppercaseString] sc_containsString:[searchText uppercaseString]]){
                             //3.拼音匹配
                             isMatch = YES;
                         }

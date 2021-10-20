@@ -12,7 +12,7 @@
 #import "MCAlertView.h"
 //#import "MCToastView.h"
 
-#import "NSString+Extend.h"
+#import "NSString+SCExtend.h"
 #import "MCContactObject.h"
 #import "MCContactHelper.h"
 
@@ -416,7 +416,7 @@ MCAlertViewDelegate
 -(NSString*)get11PhoneNumber:(NSString *)phoneNo
 {
     //@系统号码去掉86
-    NSString *telNo = [phoneNo telephoneWithReformat];
+    NSString *telNo = [phoneNo sc_telephoneWithReformat];
     if ([telNo hasPrefix:@"86"])
     {
         telNo = [telNo substringWithRange:NSMakeRange(2, [telNo length]-2)];

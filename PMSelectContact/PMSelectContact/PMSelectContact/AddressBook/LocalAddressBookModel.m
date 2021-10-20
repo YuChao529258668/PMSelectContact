@@ -7,7 +7,7 @@
 //
 
 #import "LocalAddressBookModel.h"
-#import "NSString+Extend.h"
+#import "NSString+SCExtend.h"
 //#import "LoginManager.h"
 
 #define kLocalAddressBookModel @"LocalAddressBookModel"
@@ -178,7 +178,7 @@
 - (BOOL)setSearchContactArrDataWithPhone:(NSString *)phoneNum
                              description:(NSString *)des
                            isForPhoneNum:(BOOL)yesOrNo{
-    NSString *formartPhoneStr = [phoneNum get11PhoneFormaterNumber];
+    NSString *formartPhoneStr = [phoneNum sc_get11PhoneFormaterNumber];
     if ([self isVaildPhoneNumWithFormartPhoneStr:formartPhoneStr]) {
         if (!yesOrNo) {
             formartPhoneStr = [NSString stringWithFormat:@"%@@139.com",formartPhoneStr];
@@ -197,13 +197,13 @@
     }
     if (self.addressHomeEmail)
     {
-        if ([self isValidateEmail:self.addressHomeEmail]) {
+        if ([self sc_isValidateEmail:self.addressHomeEmail]) {
             [_searchContactModelArr addObject:[self createContactWithEmail:self.addressHomeEmail description:@"家庭邮箱"]];
         }
     }
     if (self.addressWorkEmail)
     {
-        if ([self isValidateEmail:self.addressWorkEmail]) {
+        if ([self sc_isValidateEmail:self.addressWorkEmail]) {
             [_searchContactModelArr addObject:[self createContactWithEmail:self.addressWorkEmail description:@"工作邮箱"]];
         }
     }
@@ -211,7 +211,7 @@
     {
         for (NSString *email in self.addressOtherEmail)
         {
-            if ([self isValidateEmail:email]) {
+            if ([self sc_isValidateEmail:email]) {
                 [_searchContactModelArr addObject:[self createContactWithEmail:email  description:@"其他邮箱"]];
             }
         }
@@ -242,7 +242,7 @@
 }
 
 /*邮箱验证 MODIFIED*/
-- (BOOL)isValidateEmail:(NSString *)email
+- (BOOL)sc_isValidateEmail:(NSString *)email
 {
     NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9]+[A-Za-z0-9.]+\\.[A-Za-z]{2,4}";
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];

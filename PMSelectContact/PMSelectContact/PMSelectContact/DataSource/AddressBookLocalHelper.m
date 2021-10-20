@@ -9,7 +9,7 @@
 #import "AddressBookLocalHelper.h"
 #import <AddressBook/AddressBook.h>
 #import "AddressBookModel.h"
-#import "NSString+Extend.h"
+#import "NSString+SCExtend.h"
 #import "LocalAddressBookModel.h"
 #import "pinyin.h"
 #import <UIKit/UIKit.h>
@@ -119,7 +119,7 @@
 }
 
 + (void)setContactCusProWithLocalABModel: (LocalAddressBookModel *)contact{
-    contact.pinYinName = [contact.addressFullName transformToPinyin];
+    contact.pinYinName = [contact.addressFullName sc_transformToPinyin];
     contact.nameFirstLetter = [[NSString stringWithFormat:@"%c",
                             pinyinFirstLetter([contact.addressFullName characterAtIndex:0])]
                            uppercaseString];
@@ -258,62 +258,62 @@
         
         if([aLabel isEqualToString:@"_$!<Mobile>!$_"]){//移动电话
             //号码合法之后才能赋值
-            NSString *newPhone = [phone telephoneWithReformat];
-            if ([newPhone isValidPhoneNum]) {
+            NSString *newPhone = [phone sc_telephoneWithReformat];
+            if ([newPhone sc_isValidPhoneNum]) {
                 contact.addressMobileTel = newPhone;
                 if (![contact.addressMobileTelArr containsObject:newPhone]) {
                     [contact.addressMobileTelArr addObject:newPhone];
                 }
             }
         }else if([aLabel isEqualToString:@"iPhone"]){//Iphone电话
-            NSString *newPhone = [phone telephoneWithReformat];
-            if ([newPhone isValidPhoneNum]) {
+            NSString *newPhone = [phone sc_telephoneWithReformat];
+            if ([newPhone sc_isValidPhoneNum]) {
                 contact.addressIphoneTel = newPhone;
                 if (![contact.addressIphoneTelArr containsObject:newPhone]) {
                     [contact.addressIphoneTelArr addObject:newPhone];
                 }
             }
         }else if([aLabel isEqualToString:@"_$!<Home>!$_"]){//住宅电话
-            NSString *newPhone = [phone telephoneWithReformat];
-            if ([newPhone isValidPhoneNum]) {
+            NSString *newPhone = [phone sc_telephoneWithReformat];
+            if ([newPhone sc_isValidPhoneNum]) {
                 contact.addressHomeTel = newPhone;
                 if (![contact.addressHomeTelArr containsObject:newPhone]) {
                     [contact.addressHomeTelArr addObject:newPhone];
                 }
             }
         }else if([aLabel isEqualToString:@"_$!<Work>!$_"]){//工作电话
-            NSString *newPhone = [phone telephoneWithReformat];
-            if ([newPhone isValidPhoneNum]) {
+            NSString *newPhone = [phone sc_telephoneWithReformat];
+            if ([newPhone sc_isValidPhoneNum]) {
                 contact.addressWorkTel = newPhone;
                 if (![contact.addressWorkTelArr containsObject:newPhone]) {
                     [contact.addressWorkTelArr addObject:newPhone];
                 }
             }
         }else if([aLabel isEqualToString:@"_$!<Main>!$_"]){//主要电话
-            NSString *newPhone = [phone telephoneWithReformat];
-            if ([newPhone isValidPhoneNum]) {
+            NSString *newPhone = [phone sc_telephoneWithReformat];
+            if ([newPhone sc_isValidPhoneNum]) {
                 contact.addressMainTel = newPhone;
                 if (![contact.addressMainTelArr containsObject:newPhone]) {
                     [contact.addressMainTelArr addObject:newPhone];
                 }
             }
         }else if([aLabel isEqualToString:@"_$!<HomeFAX>!$_"]){//住宅传真
-            contact.addressHomeFax = [phone telephoneWithReformat];
+            contact.addressHomeFax = [phone sc_telephoneWithReformat];
         }else if([aLabel isEqualToString:@"_$!<WorkFAX>!$_"]){//工作传真
-            contact.addressWorkFax = [phone telephoneWithReformat];
+            contact.addressWorkFax = [phone sc_telephoneWithReformat];
         }else if([aLabel isEqualToString:@"_$!<OtherFAX>!$_"]){//工作传真
-            contact.addressOtherFax = [phone telephoneWithReformat];
+            contact.addressOtherFax = [phone sc_telephoneWithReformat];
         }else if([aLabel isEqualToString:@"_$!<Pager>!$_"]){//传呼
-            contact.addressPager = [phone telephoneWithReformat];
+            contact.addressPager = [phone sc_telephoneWithReformat];
             /*
              用户自定义的电话号码，将不会存在系统为其创建的aLabel 为nil
              所以可能存在有电话号码没有对应标题的情况在此情况下都按照其他号码来存储。
              aLabel可能为_$!<Other>!$_，手机，Apple Care，Apple Store，nil etc
              *///其他号码
         }else if (phone){
-            NSString *nomalizePhoneStr = [phone telephoneWithReformat];
+            NSString *nomalizePhoneStr = [phone sc_telephoneWithReformat];
             if (nomalizePhoneStr){
-                [contact.addressOtherTel addObject:[phone telephoneWithReformat]];
+                [contact.addressOtherTel addObject:[phone sc_telephoneWithReformat]];
             }
         }
     }
@@ -374,7 +374,7 @@
     NSString *phoneNumber = [tmpDic objectForKey:DicKey_PhoneNumForQuery];
     NSString *peopleFullName = nil;
     // 添加格式化电话号码方法，避免找不到数据。
-    phoneNumber = [phoneNumber get11PhoneFormaterNumber];
+    phoneNumber = [phoneNumber sc_get11PhoneFormaterNumber];
 //    NSLog(@"phoneNumber----%@",phoneNumber);
     for (AddressBookModel *contact in contactsArray)
     {
