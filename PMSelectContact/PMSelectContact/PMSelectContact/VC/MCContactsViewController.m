@@ -18,7 +18,7 @@
 
 #import "LocalAddressBookModel.h"
 #import "pinyin.h"
-#import "MyPhonePublicDefine.h"
+#import "PMSelectContactDefine.h"
 
 #import "MultiSelectTableViewCell.h"
 #import "MCContactsSearchListView.h"

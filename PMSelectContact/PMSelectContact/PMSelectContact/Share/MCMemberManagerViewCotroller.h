@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MCFunctionDefines.h"
+#import "PMSelectContactDefine.h"
 
 typedef void(^memberManagerChangeBlock)(BOOL isChange);
 typedef void(^ChosenMemberDataBlock)(BOOL isSuccess, NSArray * _Nullable members);

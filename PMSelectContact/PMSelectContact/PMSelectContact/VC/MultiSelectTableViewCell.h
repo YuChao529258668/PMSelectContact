@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "LocalAddressBookModel.h"
-#import "MCFunctionDefines.h"
+#import "PMSelectContactDefine.h"
 
 @class MultiSelectTableViewCell;
 

@@ -7,7 +7,7 @@
 //
 
 #import "MultiSelectTableViewCell.h"
-#import "MyPhonePublicDefine.h"
+#import "PMSelectContactDefine.h"
 
 static const CGFloat cellHeight = 44.0;
 static const NSInteger baseLabelTag = 1111;

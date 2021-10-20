@@ -30,7 +30,6 @@
 		0D8D8E012716C85F00494FC5 /* NSString+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D8E002716C85F00494FC5 /* NSString+Extend.m */; };
 		0D8D8E042716C88700494FC5 /* BasicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D8E032716C88700494FC5 /* BasicModel.m */; };
 		0D8D8E072716C8EA00494FC5 /* MCAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D8E062716C8EA00494FC5 /* MCAlertView.m */; };
-		0D8D8E0E2716CAAF00494FC5 /* UIColor+extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D8E0C2716CAAF00494FC5 /* UIColor+extend.m */; };
 		0D8D8E122716CB0A00494FC5 /* MultiSelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D8E102716CB0A00494FC5 /* MultiSelectTableViewCell.m */; };
 		0D8D8E152716CB3000494FC5 /* MCContactsSearchListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D8E142716CB3000494FC5 /* MCContactsSearchListView.m */; };
 		0D8D8E182716CB4500494FC5 /* MCContactsSearchListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D8E162716CB4500494FC5 /* MCContactsSearchListViewCell.m */; };
@@ -41,6 +40,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0D05D092271FE909001765D8 /* PMSelectContactDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PMSelectContactDefine.h; sourceTree = "<group>"; };
 		0D2F3E1F2717C90A00AAA2F2 /* MCMemberTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCMemberTableViewCell.m; sourceTree = "<group>"; };
 		0D2F3E202717C90A00AAA2F2 /* MCShareContactSearchModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCShareContactSearchModel.m; sourceTree = "<group>"; };
 		0D2F3E212717C90A00AAA2F2 /* MCMemberManagerViewCotroller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCMemberManagerViewCotroller.m; sourceTree = "<group>"; };
@@ -84,17 +84,12 @@
 		0D8D8E052716C8EA00494FC5 /* MCAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAlertView.h; sourceTree = "<group>"; };
 		0D8D8E062716C8EA00494FC5 /* MCAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAlertView.m; sourceTree = "<group>"; };
 		0D8D8E0A2716CA7200494FC5 /* pinyin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pinyin.h; sourceTree = "<group>"; };
-		0D8D8E0B2716CA9400494FC5 /* MyPhonePublicDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyPhonePublicDefine.h; sourceTree = "<group>"; };
-		0D8D8E0C2716CAAF00494FC5 /* UIColor+extend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+extend.m"; sourceTree = "<group>"; };
-		0D8D8E0D2716CAAF00494FC5 /* UIColor+extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+extend.h"; sourceTree = "<group>"; };
-		0D8D8E0F2716CACA00494FC5 /* PublicDefineMethods.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PublicDefineMethods.h; sourceTree = "<group>"; };
 		0D8D8E102716CB0A00494FC5 /* MultiSelectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiSelectTableViewCell.m; sourceTree = "<group>"; };
 		0D8D8E112716CB0A00494FC5 /* MultiSelectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiSelectTableViewCell.h; sourceTree = "<group>"; };
 		0D8D8E132716CB3000494FC5 /* MCContactsSearchListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCContactsSearchListView.h; sourceTree = "<group>"; };
 		0D8D8E142716CB3000494FC5 /* MCContactsSearchListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCContactsSearchListView.m; sourceTree = "<group>"; };
 		0D8D8E162716CB4500494FC5 /* MCContactsSearchListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCContactsSearchListViewCell.m; sourceTree = "<group>"; };
 		0D8D8E172716CB4500494FC5 /* MCContactsSearchListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCContactsSearchListViewCell.h; sourceTree = "<group>"; };
-		0D8D8E192716CCF100494FC5 /* MCFunctionDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCFunctionDefines.h; sourceTree = "<group>"; };
 		0D8D8E1A2716CDA600494FC5 /* POAPinyin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POAPinyin.m; sourceTree = "<group>"; };
 		0D8D8E1B2716CDA600494FC5 /* POAPinyin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POAPinyin.h; sourceTree = "<group>"; };
 		0D8D8E1D2716CDC200494FC5 /* POAHead.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = POAHead.h; sourceTree = "<group>"; };
@@ -119,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				0DCB2FA6271802CC00ABCB7D /* Media.xcassets */,
+				0D05D092271FE909001765D8 /* PMSelectContactDefine.h */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -235,11 +231,6 @@
 		0D8D8DFE2716C83A00494FC5 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
-				0D8D8E0D2716CAAF00494FC5 /* UIColor+extend.h */,
-				0D8D8E0C2716CAAF00494FC5 /* UIColor+extend.m */,
-				0D8D8E192716CCF100494FC5 /* MCFunctionDefines.h */,
-				0D8D8E0F2716CACA00494FC5 /* PublicDefineMethods.h */,
-				0D8D8E0B2716CA9400494FC5 /* MyPhonePublicDefine.h */,
 				0D8D8E0A2716CA7200494FC5 /* pinyin.h */,
 				0DCB2FA12717E03500ABCB7D /* pinyin.c */,
 				0D8D8E1B2716CDA600494FC5 /* POAPinyin.h */,
@@ -353,7 +344,6 @@
 				0D8D8DE92716C69500494FC5 /* MCContactObject.m in Sources */,
 				0D2F3E292717C90A00AAA2F2 /* MCMemberManagerViewCotroller.m in Sources */,
 				0D8D8E182716CB4500494FC5 /* MCContactsSearchListViewCell.m in Sources */,
-				0D8D8E0E2716CAAF00494FC5 /* UIColor+extend.m in Sources */,
 				0D8D8E072716C8EA00494FC5 /* MCAlertView.m in Sources */,
 				0DCB2FA22717E03500ABCB7D /* pinyin.c in Sources */,
 				0D8D8E012716C85F00494FC5 /* NSString+Extend.m in Sources */,
