@@ -12,7 +12,6 @@
 #import "MCMemberTableViewCell.h"
 #import "PMMCAlertView.h"
 #import "MCContactsSearchListView.h"
-//#import "YBProgressShow.h" // todo
 
 #import "MCShareContactSearchModel.h"
 #import "LocalAddressBookModel.h"
@@ -23,6 +22,7 @@
 
 #import "NSString+SCExtend.h"
 #import "pinyin.h"
+#import "PMSCToastView.h"
 
 @interface MCMemberManagerViewCotroller ()
 <UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,MCMemberTableViewCellDelegate,
@@ -597,17 +597,10 @@ MCContactsSearchListViewDelegate>
     if (text == nil) {
         return;
     }
-    // todo
+
     NSLog(@"%@", text);
     
-//    if (self.toastView) {
-//        return;
-//    }
-//    self.toastView = [YBProgressShow defaultProgress];
-//    [self.toastView showText:text InMode:MBProgressHUDModeText OriginViewEnableTouch:YES HideAfterDelayTime:2.0f];
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        self.toastView = nil;
-//    });
+    [PMSCToastView toastWithText:text];
 }
 //添加一个成员到成员数组
 -(void)addMemberModel:(MCShareContactSearchModel*)model{

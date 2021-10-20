@@ -12,6 +12,7 @@
 		0D2F3E292717C90A00AAA2F2 /* MCMemberManagerViewCotroller.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D2F3E212717C90A00AAA2F2 /* MCMemberManagerViewCotroller.m */; };
 		0D2F3E2A2717C90A00AAA2F2 /* MCMemberTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D2F3E232717C90A00AAA2F2 /* MCMemberTableViewCell.xib */; };
 		0D2F3E2B2717C90A00AAA2F2 /* MCMemberManagerViewCotroller.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D2F3E252717C90A00AAA2F2 /* MCMemberManagerViewCotroller.xib */; };
+		0D5D9BE6271FF2CC00B3A7DA /* PMSCToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5D9BE4271FF2CC00B3A7DA /* PMSCToastView.m */; };
 		0D8D8DC82716C5F700494FC5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D8DC72716C5F700494FC5 /* AppDelegate.m */; };
 		0D8D8DCB2716C5F700494FC5 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D8DCA2716C5F700494FC5 /* SceneDelegate.m */; };
 		0D8D8DCE2716C5F700494FC5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D8DCD2716C5F700494FC5 /* ViewController.m */; };
@@ -49,6 +50,8 @@
 		0D2F3E242717C90A00AAA2F2 /* MCShareContactSearchModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCShareContactSearchModel.h; sourceTree = "<group>"; };
 		0D2F3E252717C90A00AAA2F2 /* MCMemberManagerViewCotroller.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MCMemberManagerViewCotroller.xib; sourceTree = "<group>"; };
 		0D2F3E262717C90A00AAA2F2 /* MCMemberManagerViewCotroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCMemberManagerViewCotroller.h; sourceTree = "<group>"; };
+		0D5D9BE4271FF2CC00B3A7DA /* PMSCToastView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMSCToastView.m; sourceTree = "<group>"; };
+		0D5D9BE5271FF2CC00B3A7DA /* PMSCToastView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMSCToastView.h; sourceTree = "<group>"; };
 		0D8D8DC32716C5F700494FC5 /* PMSelectContact.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PMSelectContact.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D8D8DC62716C5F700494FC5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0D8D8DC72716C5F700494FC5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -238,6 +241,8 @@
 				0D8D8E1D2716CDC200494FC5 /* POAHead.h */,
 				0D8D8E052716C8EA00494FC5 /* PMMCAlertView.h */,
 				0D8D8E062716C8EA00494FC5 /* PMMCAlertView.m */,
+				0D5D9BE5271FF2CC00B3A7DA /* PMSCToastView.h */,
+				0D5D9BE4271FF2CC00B3A7DA /* PMSCToastView.m */,
 				0D8D8DFF2716C85F00494FC5 /* NSString+SCExtend.h */,
 				0D8D8E002716C85F00494FC5 /* NSString+SCExtend.m */,
 			);
@@ -339,6 +344,7 @@
 				0D8D8DCB2716C5F700494FC5 /* SceneDelegate.m in Sources */,
 				0D8D8DFB2716C7B200494FC5 /* MCKeyValueModel.m in Sources */,
 				0D2F3E282717C90A00AAA2F2 /* MCShareContactSearchModel.m in Sources */,
+				0D5D9BE6271FF2CC00B3A7DA /* PMSCToastView.m in Sources */,
 				0D2F3E272717C90A00AAA2F2 /* MCMemberTableViewCell.m in Sources */,
 				0D8D8DF82716C7B200494FC5 /* ContactModel.m in Sources */,
 				0D8D8DE92716C69500494FC5 /* MCContactObject.m in Sources */,

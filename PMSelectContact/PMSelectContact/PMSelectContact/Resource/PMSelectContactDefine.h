@@ -19,5 +19,9 @@
 #define SCREEN_HEIGHT  (WIDTH_SCREEN > HEIGHT_SCREEN ? WIDTH_SCREEN : HEIGHT_SCREEN)
 #define WIDTH_SCREEN ([UIScreen mainScreen].bounds.size.width)
 #define HEIGHT_SCREEN ([UIScreen mainScreen].bounds.size.height)
+#define UI_SCREEN_HEIGHT        [UIScreen mainScreen].bounds.size.height
+#define UI_SCREEN_WIDTH        [UIScreen mainScreen].bounds.size.width
+
+//#define NEW_StatusBarHeight                 (IsIphoneX?44:MAX(20,[UIApplication sharedApplication].statusBarFrame.size.height))
 
 #endif /* PMSelectContactDefine_h */
