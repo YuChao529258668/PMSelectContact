@@ -13,7 +13,6 @@
 #import "MCSCAlertView.h"
 #import "MCContactsSearchListView.h"
 
-#import "MCShareContactSearchModel.h"
 #import "LocalAddressBookModel.h"
 #import "AddressBookModel.h"
 #import "MCContactObject.h"
@@ -50,6 +49,8 @@ MCContactsSearchListViewDelegate>
 @property (nonatomic, strong) UIView *emptyView;
 //@property (nonatomic, strong) MBProgressHUD *mbProgressHUD;
 
+@property (nonatomic, strong) UIBarButtonItem *rightItem;
+
 @end
 
 @implementation MCMemberManagerViewCotroller
@@ -66,13 +67,13 @@ MCContactsSearchListViewDelegate>
     [self adjustNavigationBariOS15:self.navigationController.navigationBar];
 }
 
-- (void)viewWillLayoutSubviews {
-    [super viewWillLayoutSubviews];
-    
-    CGRect frame = self.view.frame;
-    frame.origin.y = self.navigationController.navigationBar.frame.size.height;
-    self.view.frame = frame;
-}
+//- (void)viewWillLayoutSubviews {
+//    [super viewWillLayoutSubviews];
+//
+//    CGRect frame = self.view.frame;
+//    frame.origin.y = self.navigationController.navigationBar.frame.size.height;
+//    self.view.frame = frame;
+//}
 
 - (void)adjustNavigationBariOS15:(UINavigationBar *)navigationBar {
     if (@available(iOS 15.0, *)) {
@@ -145,7 +146,7 @@ MCContactsSearchListViewDelegate>
     
     if ((self.isFriendIn || self.isFromNoteShare) && self.member_dataArr.count <= 0) {
         self.emptyView.hidden = NO;
-        self.navigationItem.rightBarButtonItem.enabled = NO;
+        self.rightItem.enabled = NO;
     }
     
 //    if (self.isFriendIn) {
@@ -155,10 +156,11 @@ MCContactsSearchListViewDelegate>
     
     //导航栏按钮重写
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"common_back"] style:UIBarButtonItemStylePlain target:self action:@selector(leftBarButtonDidClick:)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:(self.isFriendIn||self.isFromNoteShare) ? @"分享" : @"保存"  style:(UIBarButtonItemStylePlain) target:self action:@selector(rightBarButtonDidClick:)];
+    self.rightItem = [[UIBarButtonItem alloc] initWithTitle:(self.isFriendIn||self.isFromNoteShare) ? @"分享" : @"保存"  style:(UIBarButtonItemStylePlain) target:self action:@selector(rightBarButtonDidClick:)];
+    self.navigationItem.rightBarButtonItem = self.rightItem;
     [self.navigationItem.rightBarButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:16], NSFontAttributeName, nil] forState:UIControlStateNormal];
     
-    self.navigationItem.rightBarButtonItem.enabled = NO;
+    self.rightItem.enabled = NO;
     
     self.addContactView.layer.masksToBounds = YES;
     self.addContactView.layer.cornerRadius = 4;
@@ -267,7 +269,7 @@ MCContactsSearchListViewDelegate>
                         weakSelf.memberCountLabel.text = [weakSelf getMemberCountString:weakSelf.member_dataArr.count];
                         if (weakSelf.member_dataArr.count <= 0) {
                             weakSelf.emptyView.hidden = NO;
-                            weakSelf.navigationItem.rightBarButtonItem.enabled = NO;
+                            weakSelf.rightItem.enabled = NO;
                         }
                     });
                 }
@@ -360,10 +362,10 @@ MCContactsSearchListViewDelegate>
                 weakSelf.memberCountLabel.text = [weakSelf getMemberCountString: weakSelf.member_dataArr.count];
                 if (weakSelf.member_dataArr.count > 0) {
                     weakSelf.emptyView.hidden = YES;
-                    weakSelf.navigationItem.rightBarButtonItem.enabled = YES;
+                    weakSelf.rightItem.enabled = YES;
                 } else {
                     weakSelf.emptyView.hidden = NO;
-                    weakSelf.navigationItem.rightBarButtonItem.enabled = NO;
+                    weakSelf.rightItem.enabled = NO;
                 }
             });
         }
@@ -399,6 +401,7 @@ MCContactsSearchListViewDelegate>
         // MCShareContactSearchModel
 //        NSMutableArray *member_dataArr = [self.member_dataArr yy_modelToJSONObject];
 //        self.noteSigninChosenMemberBlock(YES, member_dataArr);
+        self.noteSigninChosenMemberBlock(YES, self.member_dataArr);
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
@@ -737,7 +740,7 @@ MCContactsSearchListViewDelegate>
     
     if (self.member_dataArr.count > 0) {
         self.emptyView.hidden = YES;
-        self.navigationItem.rightBarButtonItem.enabled = YES;
+        self.rightItem.enabled = YES;
     }
     
     //收起键盘
